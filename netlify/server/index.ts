@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import type { Context, Next } from "hono";
 import { getCookie } from "hono/cookie";
-import { desc } from "drizzle-orm";
+import { desc, eq, sql } from "drizzle-orm";
 import { getStore } from "@netlify/blobs";
 import { db } from "../../db/index.ts";
 import { observations, rosterEntries } from "../../db/schema.ts";
@@ -95,6 +95,10 @@ function isValidObservation(obs: unknown): obs is Observation {
   return !!obs && typeof obs === "object" && typeof (obs as Observation).id === "string" && (obs as Observation).id.length > 0;
 }
 
+function isOwner(createdBy: string | null, user: AuthUser): boolean {
+  return !!createdBy && createdBy.toLowerCase() === user.email.toLowerCase();
+}
+
 function cleanName(value: unknown): string {
   return typeof value === "string" ? value.trim().slice(0, 120) : "";
 }
@@ -105,7 +109,7 @@ async function loadAll() {
     db.select().from(rosterEntries).orderBy(rosterEntries.createdAt),
   ]);
   return {
-    observations: obsRows.map((r) => r.data),
+    observations: obsRows.map((r) => ({ ...(r.data as object), submittedBy: r.createdBy })),
     teachers: rosterRows.filter((r) => r.kind === "teacher").map((r) => r.name),
     observers: rosterRows.filter((r) => r.kind === "observer").map((r) => r.name),
   };
@@ -127,13 +131,45 @@ app.post("/api/observations", async (c) => {
   if (!isValidObservation(body)) return c.json({ error: "Invalid observation" }, 400);
 
   const user = c.get("user");
+  const [existing] = await db.select({ createdBy: observations.createdBy }).from(observations).where(eq(observations.id, body.id));
+  if (existing && !isOwner(existing.createdBy, user)) {
+    return c.json({ error: "Only the person who created this observation can change it." }, 403);
+  }
+
   const stored = await extractPhotos({ ...body, submittedBy: user.email });
   await db
     .insert(observations)
     .values({ id: stored.id, data: stored, createdBy: user.email })
-    .onConflictDoUpdate({ target: observations.id, set: { data: stored, updatedAt: new Date() } });
+    .onConflictDoUpdate({
+      target: observations.id,
+      set: { data: stored, updatedAt: new Date() },
+      setWhere: sql`lower(${observations.createdBy}) = lower(${user.email})`,
+    });
 
   return c.json(stored, 201);
+});
+
+// Only the signed-in user who created an observation may delete it.
+app.delete("/api/observations/:id", async (c) => {
+  const id = c.req.param("id");
+  const user = c.get("user");
+  const [existing] = await db.select().from(observations).where(eq(observations.id, id));
+  if (!existing) return c.json({ ok: true, id });
+  if (!isOwner(existing.createdBy, user)) {
+    return c.json({ error: "Only the person who created this observation can delete it." }, 403);
+  }
+
+  await db.delete(observations).where(eq(observations.id, id));
+
+  const photos = ((existing.data as Observation)?.photos ?? []) as Photo[];
+  await Promise.all(
+    photos
+      .map((p) => (typeof p?.url === "string" && p.url.startsWith("/api/photos/") ? p.url.slice("/api/photos/".length) : null))
+      .filter((key): key is string => !!key)
+      .map((key) => photoStore.delete(decodeURIComponent(key)).catch((err) => console.error("Photo cleanup failed", err)))
+  );
+
+  return c.json({ ok: true, id });
 });
 
 app.post("/api/roster", async (c) => {
