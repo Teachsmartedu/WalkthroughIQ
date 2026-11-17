@@ -1,0 +1,20 @@
+{
+  "name": "walkthroughiq",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:client": "esbuild src/identity-client.js --bundle --format=esm --minify --target=es2019 --outfile=public/vendor/identity.js"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^11.1.9",
+    "@netlify/database": "^2.0.3",
+    "@netlify/identity": "^2.0.1",
+    "@netlify/server": "^0.1.6",
+    "drizzle-orm": "^1.0.0-beta.22",
+    "hono": "^4.13.19"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^1.0.0-beta.22",
+    "esbuild": "^0.28.2"
+  }
+}

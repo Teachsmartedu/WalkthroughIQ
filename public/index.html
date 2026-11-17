@@ -1,0 +1,4094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WalkthroughIQ — Instructional Quality • G8 Social Studies Observation Platform</title>
+  <style>
+    /* =========================================================================
+       WALKTHROUGHIQ — SELF-CONTAINED DAYLIGHT-FIRST DESIGN SYSTEM
+       Zero external script/font dependencies for 100% sandbox & offline reliability
+       ========================================================================= */
+    :root {
+      --bg-canvas: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-subtle: #f1f5f9;
+      --bg-muted: #e2e8f0;
+      --border-light: #e2e8f0;
+      --border-med: #cbd5e1;
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --indigo-50: #eef2ff;
+      --indigo-100: #e0e7ff;
+      --indigo-200: #c7d2fe;
+      --indigo-600: #4f46e5;
+      --indigo-700: #4338ca;
+      --indigo-800: #3730a3;
+      --emerald-50: #ecfdf5;
+      --emerald-100: #d1fae5;
+      --emerald-200: #a7f3d0;
+      --emerald-600: #059669;
+      --emerald-700: #047857;
+      --emerald-800: #065f46;
+      --amber-50: #fffbeb;
+      --amber-100: #fef3c7;
+      --amber-200: #fde68a;
+      --amber-500: #f59e0b;
+      --amber-700: #b45309;
+      --amber-800: #92400e;
+      --rose-50: #fff1f2;
+      --rose-100: #ffe4e6;
+      --rose-200: #fecdd3;
+      --rose-600: #e11d48;
+      --rose-700: #be123c;
+      --rose-800: #9f1239;
+      --blue-50: #eff6ff;
+      --blue-100: #dbeafe;
+      --blue-200: #bfdbfe;
+      --blue-600: #2563eb;
+      --blue-700: #1d4ed8;
+      --sky-50: #f0f9ff;
+      --sky-200: #bae6fd;
+      --sky-800: #075985;
+      --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
+      --shadow-sm: 0 2px 6px rgba(15, 23, 42, 0.06);
+      --shadow-md: 0 8px 20px rgba(15, 23, 42, 0.08);
+      --shadow-xl: 0 20px 35px rgba(15, 23, 42, 0.14);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-full: 9999px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-canvas);
+      color: var(--text-primary);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Header & Top Nav */
+    .top-header {
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid var(--border-light);
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      box-shadow: var(--shadow-xs);
+    }
+
+    .header-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 20px;
+      min-height: 66px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      background: var(--indigo-50);
+      border: 1px solid var(--indigo-200);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--indigo-700);
+      flex-shrink: 0;
+    }
+
+    .brand-title-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-name {
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+    }
+
+    .brand-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: var(--indigo-50);
+      color: var(--indigo-700);
+      border: 1px solid var(--indigo-200);
+    }
+
+    .brand-tagline {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-top: 1px;
+    }
+
+    .nav-pills {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--bg-subtle);
+      padding: 4px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-light);
+      flex-wrap: wrap;
+    }
+
+    .nav-btn {
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .nav-btn:hover {
+      background: rgba(255, 255, 255, 0.7);
+      color: var(--text-primary);
+    }
+
+    .nav-btn.active {
+      background: var(--bg-surface);
+      color: var(--indigo-700);
+      border-color: var(--border-light);
+      box-shadow: var(--shadow-xs);
+    }
+
+    .nav-count {
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-light);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 0 6px;
+      border-radius: var(--radius-full);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .offline-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: var(--radius-md);
+      background: var(--emerald-50);
+      border: 1px solid var(--emerald-200);
+      color: var(--emerald-800);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--emerald-600);
+      display: inline-block;
+    }
+
+    /* Buttons */
+    .btn {
+      border: 1px solid transparent;
+      border-radius: var(--radius-md);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    .btn-primary {
+      background: var(--indigo-600);
+      color: #ffffff;
+      box-shadow: var(--shadow-xs);
+    }
+
+    .btn-primary:hover {
+      background: var(--indigo-700);
+    }
+
+    .btn-emerald {
+      background: var(--emerald-600);
+      color: #ffffff;
+      box-shadow: var(--shadow-xs);
+    }
+
+    .btn-emerald:hover {
+      background: var(--emerald-700);
+    }
+
+    .btn-outline {
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+      border-color: var(--border-med);
+    }
+
+    .btn-outline:hover {
+      background: var(--bg-subtle);
+      color: var(--text-primary);
+    }
+
+    .btn-soft-indigo {
+      background: var(--indigo-50);
+      color: var(--indigo-700);
+      border-color: var(--indigo-200);
+    }
+
+    .btn-soft-indigo:hover {
+      background: var(--indigo-100);
+    }
+
+    .btn-soft-sky {
+      background: var(--sky-50);
+      color: var(--sky-800);
+      border-color: var(--sky-200);
+    }
+
+    .btn-soft-sky:hover {
+      background: #e0f2fe;
+    }
+
+    .btn-sm {
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: var(--radius-sm);
+    }
+
+    /* Main Layout */
+    .main-container {
+      flex: 1;
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 24px 20px 48px;
+    }
+
+    .stack-lg {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .stack-md {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-xs);
+    }
+
+    .card-padded {
+      padding: 20px 24px;
+    }
+
+    .card-header {
+      padding: 16px 22px;
+      border-bottom: 1px solid var(--border-light);
+      background: #fafbfd;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      border-top-left-radius: var(--radius-lg);
+      border-top-right-radius: var(--radius-lg);
+    }
+
+    .card-title {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    .card-subtitle {
+      margin: 2px 0 0;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      background: linear-gradient(135deg, #ffffff 0%, #eef2ff 55%, #f0f9ff 100%);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 26px;
+      box-shadow: var(--shadow-xs);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .hero-copy {
+      max-width: 620px;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      background: var(--indigo-50);
+      border: 1px solid var(--indigo-200);
+      color: var(--indigo-800);
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .hero-title {
+      margin: 0;
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+    }
+
+    .hero-desc {
+      margin: 8px 0 0;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .hero-actions-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(155px, 1fr));
+      gap: 12px;
+    }
+
+    .quick-action-card {
+      text-align: left;
+      padding: 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-light);
+      background: var(--bg-surface);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: var(--shadow-xs);
+    }
+
+    .quick-action-card:hover {
+      border-color: var(--indigo-300, #a5b4fc);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .quick-action-card.primary-card {
+      background: var(--indigo-600);
+      border-color: var(--indigo-700);
+      color: #ffffff;
+    }
+
+    .quick-action-card.primary-card:hover {
+      background: var(--indigo-700);
+    }
+
+    /* Grids */
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .grid-5 {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    /* KPI Cards */
+    .kpi-label {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+    }
+
+    .kpi-value {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-top: 8px;
+      line-height: 1.1;
+    }
+
+    .kpi-meta {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 9px;
+      border-radius: var(--radius-full);
+      font-size: 11px;
+      font-weight: 700;
+      border: 1px solid transparent;
+    }
+
+    .badge-emerald {
+      background: var(--emerald-50);
+      color: var(--emerald-800);
+      border-color: var(--emerald-200);
+    }
+
+    .badge-amber {
+      background: var(--amber-50);
+      color: var(--amber-800);
+      border-color: var(--amber-200);
+    }
+
+    .badge-rose {
+      background: var(--rose-50);
+      color: var(--rose-800);
+      border-color: var(--rose-200);
+    }
+
+    .badge-blue {
+      background: var(--blue-50);
+      color: var(--blue-700);
+      border-color: var(--blue-200);
+    }
+
+    .badge-indigo {
+      background: var(--indigo-50);
+      color: var(--indigo-800);
+      border-color: var(--indigo-200);
+    }
+
+    .badge-slate {
+      background: var(--bg-subtle);
+      color: var(--text-secondary);
+      border-color: var(--border-med);
+    }
+
+    /* Tables */
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    th {
+      background: #f8fafc;
+      border-bottom: 1px solid var(--border-light);
+      padding: 11px 16px;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 13px 16px;
+      border-bottom: 1px solid var(--border-light);
+      font-size: 13px;
+      color: var(--text-secondary);
+      vertical-align: middle;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr.clickable-row {
+      cursor: pointer;
+      transition: background 0.12s ease;
+    }
+
+    tbody tr.clickable-row:hover {
+      background: #f5f7ff;
+    }
+
+    /* Form Controls */
+    .field-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+    }
+
+    .input, .select, .textarea {
+      width: 100%;
+      font-family: inherit;
+      font-size: 13px;
+      color: var(--text-primary);
+      background: #f8fafc;
+      border: 1px solid var(--border-med);
+      border-radius: var(--radius-sm);
+      padding: 8px 11px;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .input:focus, .select:focus, .textarea:focus {
+      outline: none;
+      background: #ffffff;
+      border-color: var(--indigo-600);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+    }
+
+    /* Rating Buttons */
+    .rating-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+    }
+
+    .rating-btn {
+      border: 1px solid var(--border-med);
+      background: #ffffff;
+      color: var(--text-secondary);
+      border-radius: var(--radius-sm);
+      padding: 9px 4px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.12s ease;
+    }
+
+    .rating-btn:hover {
+      background: var(--bg-subtle);
+    }
+
+    .rating-btn.sel-0 { background: #475569; color: #fff; border-color: #334155; }
+    .rating-btn.sel-1 { background: var(--rose-600); color: #fff; border-color: var(--rose-700); }
+    .rating-btn.sel-2 { background: var(--amber-500); color: #fff; border-color: var(--amber-700); }
+    .rating-btn.sel-3 { background: var(--blue-600); color: #fff; border-color: var(--blue-700); }
+    .rating-btn.sel-4 { background: var(--emerald-600); color: #fff; border-color: var(--emerald-700); }
+
+    /* Domain Tabs */
+    .domain-tabs-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .domain-tab-btn {
+      text-align: left;
+      padding: 14px 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-light);
+      background: var(--bg-surface);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .domain-tab-btn:hover {
+      border-color: var(--indigo-200);
+      background: #fafbff;
+    }
+
+    .domain-tab-btn.active {
+      background: var(--indigo-600);
+      border-color: var(--indigo-700);
+      color: #ffffff;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Evidence Tag Pills */
+    .tag-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 5px 10px;
+      border-radius: var(--radius-full);
+      font-size: 11px;
+      font-weight: 700;
+      border: 1px solid var(--border-med);
+      background: #ffffff;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.12s ease;
+    }
+
+    .tag-pill:hover {
+      border-color: var(--indigo-600);
+      background: var(--indigo-50);
+    }
+
+    .tag-pill.active {
+      background: var(--indigo-600);
+      color: #ffffff;
+      border-color: var(--indigo-700);
+    }
+
+    /* Component Item */
+    .component-row {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .component-row:last-child {
+      border-bottom: none;
+    }
+
+    .component-split {
+      display: grid;
+      grid-template-columns: 7fr 5fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .lookfor-box {
+      background: var(--sky-50);
+      border: 1px solid var(--sky-200);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .lookfor-box ul {
+      margin: 6px 0 0;
+      padding-left: 18px;
+    }
+
+    .lookfor-box li {
+      margin-bottom: 4px;
+    }
+
+    .score-panel {
+      background: #f8fafc;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 14px;
+    }
+
+    /* Progress Bar */
+    .progress-track {
+      width: 100%;
+      height: 18px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      padding: 2px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: 5px;
+      transition: width 0.35s ease;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 6px;
+      font-size: 10px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    /* Sign-in screen (Netlify Identity) */
+    body.auth-locked .top-header,
+    body.auth-locked .main-container {
+      display: none;
+    }
+
+    .auth-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      background:
+        radial-gradient(circle at 15% 10%, var(--indigo-50), transparent 45%),
+        radial-gradient(circle at 85% 90%, var(--emerald-50), transparent 45%),
+        var(--bg-canvas);
+    }
+
+    .auth-screen.hidden {
+      display: none;
+    }
+
+    .auth-card {
+      width: 100%;
+      max-width: 420px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .auth-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .auth-card h1 {
+      font-size: 20px;
+      margin: 0;
+      letter-spacing: -0.01em;
+    }
+
+    .auth-card p {
+      margin: 0;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .auth-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .auth-form label {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+    }
+
+    .auth-form .btn {
+      width: 100%;
+      justify-content: center;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+
+    .auth-link {
+      background: none;
+      border: none;
+      padding: 0;
+      color: var(--indigo-700);
+      font-weight: 700;
+      font-size: 12px;
+      cursor: pointer;
+      text-decoration: underline;
+      align-self: center;
+    }
+
+    .auth-message {
+      font-size: 13px;
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      border: 1px solid transparent;
+    }
+
+    .auth-message.error {
+      background: var(--rose-50);
+      border-color: var(--rose-200);
+      color: var(--rose-800);
+    }
+
+    .auth-message.success {
+      background: var(--emerald-50);
+      border-color: var(--emerald-200);
+      color: var(--emerald-800);
+    }
+
+    .auth-foot {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-align: center;
+      border-top: 1px solid var(--border-light);
+      padding-top: 12px;
+    }
+
+    .user-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .user-chip-email {
+      max-width: 180px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-weight: 600;
+    }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.38);
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      overflow-y: auto;
+    }
+
+    .modal-backdrop.hidden {
+      display: none;
+    }
+
+    .modal-dialog {
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-xl);
+      max-width: 920px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    /* Toast */
+    .toast-stack {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 60;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      pointer-events: none;
+    }
+
+    .toast-item {
+      background: #ffffff;
+      border: 1px solid var(--border-med);
+      border-left: 4px solid var(--indigo-600);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+      padding: 12px 16px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-primary);
+      max-width: 360px;
+    }
+
+    .toast-item.success { border-left-color: var(--emerald-600); }
+    .toast-item.error { border-left-color: var(--rose-600); }
+
+    /* Cadence Card Row */
+    .cadence-item {
+      padding: 14px 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .cadence-item.overdue {
+      background: #fff8f8;
+      border-color: var(--rose-200);
+    }
+
+    .cadence-item.due-soon {
+      background: #fffdf5;
+      border-color: var(--amber-200);
+    }
+
+    .cadence-item.on-track {
+      background: #ffffff;
+      border-color: var(--border-light);
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 1024px) {
+      .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .grid-2 { grid-template-columns: 1fr; }
+      .grid-5 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .domain-tabs-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .component-split { grid-template-columns: 1fr; }
+      .hero-actions-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); width: 100%; }
+    }
+
+    @media (max-width: 640px) {
+      .grid-4 { grid-template-columns: 1fr; }
+      .grid-3 { grid-template-columns: 1fr; }
+      .grid-5 { grid-template-columns: 1fr; }
+      .domain-tabs-row { grid-template-columns: 1fr; }
+      .hero-actions-grid { grid-template-columns: 1fr; }
+      .offline-pill { display: none; }
+    }
+
+    @media print {
+      body * { visibility: hidden; }
+      #printable-report, #printable-report * { visibility: visible; }
+      #printable-report {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        background: #ffffff;
+        padding: 16px;
+      }
+      .no-print { display: none !important; }
+    }
+  </style>
+</head>
+<body class="auth-locked">
+
+  <!-- Sign-in Screen (shown until a participant is signed in) -->
+  <div id="auth-screen" class="auth-screen">
+    <div class="auth-card">
+      <div class="auth-brand">
+        <div class="brand-icon">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <div>
+          <div class="brand-name">WalkthroughIQ</div>
+          <div class="brand-tagline">SY26-27 • G8 Social Studies</div>
+        </div>
+      </div>
+      <div id="auth-body"><p>Checking your session…</p></div>
+      <div class="auth-foot">Access is by invitation only. Ask your campus administrator for an invite email.</div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="toast-stack"></div>
+
+  <!-- Top Navigation Header -->
+  <header class="top-header">
+    <div class="header-inner">
+      <div class="brand-group" onclick="navigateTo('dashboard')">
+        <div class="brand-icon">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title-row">
+            <span class="brand-name">WalkthroughIQ</span>
+            <span class="brand-badge">SY26-27 • G8 Social Studies</span>
+          </div>
+          <div class="brand-tagline">Instructional Quality • T-TESS Aligned</div>
+        </div>
+      </div>
+
+      <nav class="nav-pills" aria-label="Main Navigation">
+        <button id="nav-dashboard" class="nav-btn active" onclick="navigateTo('dashboard')">Dashboard</button>
+        <button id="nav-observe" class="nav-btn" onclick="navigateTo('observe')">Active Form</button>
+        <button id="nav-history" class="nav-btn" onclick="navigateTo('history')">
+          <span>Archive</span>
+          <span id="nav-count-badge" class="nav-count tabular-nums">0</span>
+        </button>
+        <button id="nav-analytics" class="nav-btn" onclick="navigateTo('analytics')">Analytics &amp; Tables</button>
+      </nav>
+
+      <div class="header-actions">
+        <div id="offline-status-pill" class="offline-pill tabular-nums" title="Observations are saved to the shared team workspace; drafts auto-save on this device">
+          <span class="status-dot"></span>
+          <span id="offline-status-text">Shared Workspace • Synced</span>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="launchNewObservationTab()" title="Opens a fresh observation session in a new browser tab">
+          + New Observation ↗
+        </button>
+        <div class="user-chip">
+          <span id="user-chip-email" class="user-chip-email" title=""></span>
+          <button type="button" class="btn btn-outline btn-sm" onclick="signOut()">Sign out</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Workspace -->
+  <main class="main-container">
+    <div id="app-view"></div>
+  </main>
+
+  <!-- Modal Container -->
+  <div id="modal-backdrop" class="modal-backdrop hidden" onclick="if(event.target === this) closeModal();">
+    <div id="modal-content" class="modal-dialog"></div>
+  </div>
+
+  <script>
+    // =========================================================================
+    // 1. SAFE STORAGE WRAPPER (PREVENTS SANDBOXED IFRAME SECURITY ERRORS)
+    // =========================================================================
+    const memoryStorage = {};
+
+    function safeGetItem(key) {
+      try {
+        return window.localStorage.getItem(key);
+      } catch (e) {
+        return Object.prototype.hasOwnProperty.call(memoryStorage, key) ? memoryStorage[key] : null;
+      }
+    }
+
+    function safeSetItem(key, value) {
+      memoryStorage[key] = value;
+      try {
+        window.localStorage.setItem(key, value);
+      } catch (e) {
+        // Fallback silently to in-memory store in restricted iframes
+      }
+    }
+
+    function safeRemoveItem(key) {
+      delete memoryStorage[key];
+      try {
+        window.localStorage.removeItem(key);
+      } catch (e) {
+        // Ignore in restricted iframes
+      }
+    }
+
+    function loadJSON(key, fallback) {
+      try {
+        const raw = safeGetItem(key);
+        return raw ? JSON.parse(raw) : fallback;
+      } catch (e) {
+        return fallback;
+      }
+    }
+
+    function saveJSON(key, val) {
+      try {
+        safeSetItem(key, JSON.stringify(val));
+      } catch (e) {
+        // Ignore quota errors
+      }
+    }
+
+    // =========================================================================
+    // 2. OFFICIAL RUBRIC DATA (G8 SOCIAL STUDIES OBSERVATION TOOL — T-TESS)
+    // =========================================================================
+    const RUBRIC_DOMAINS = [
+      {
+        id: 'domain_env',
+        title: 'Learning Environment',
+        subtitle: 'Aligned to T-TESS Domain 3',
+        question: 'Is the classroom environment structured to support efficient routines & student persistence to maximize instructional time?',
+        components: [
+          {
+            id: 'routines',
+            number: 1,
+            name: 'Routines',
+            domainId: 'domain_env',
+            domainName: 'Learning Environment',
+            descriptor: 'Students execute transitions, routines, and procedures in an efficient manner that maximizes instructional time.',
+            lookFors: [
+              "Students pick up the day's handouts as they enter, quickly grab their binders, take their seats, and immediately begin the posted bell ringer using the established response format."
+            ],
+            suggestedTags: ['Handouts Picked Up at Entry', 'Bell Ringer On-Time', 'Crisp Binder Transition']
+          },
+          {
+            id: 'classroom_management',
+            number: 2,
+            name: 'Classroom Management',
+            domainId: 'domain_env',
+            domainName: 'Learning Environment',
+            descriptor: 'Students follow expectations with positive teacher reinforcements. If misbehavior occurs, students are redirected with minimal disruption to instruction.',
+            lookFors: [
+              'The teacher uses clear, specific language to cue routines and reinforce expectations.',
+              'The teacher might say, "Voices off while I\'m explaining," "Choose your answer and show it on my signal" during a check for understanding, or "Partner A speaks first while Partner B listens" during Think-Pair-Share.',
+              'Students follow the teacher\'s cues and complete end-of-class routines, such as turning in their exit tickets/work and putting away their binders.',
+              'The teacher acknowledges students who meet expectations and redirects misbehavior briefly so instruction continues.'
+            ],
+            suggestedTags: ['Clear Verbal Cues', 'Positive Narration', 'Brief Redirection', 'End-of-Class Routine']
+          }
+        ]
+      },
+      {
+        id: 'domain_inst',
+        title: 'Instructional Delivery',
+        subtitle: 'Aligned to T-TESS Domain 2',
+        question: 'Are all students learning accurate content through research and evidence-based instructional strategies?',
+        components: [
+          {
+            id: 'pacing',
+            number: 3,
+            name: 'Pacing',
+            domainId: 'domain_inst',
+            domainName: 'Instructional Delivery',
+            descriptor: 'The teacher maintains appropriate pacing aligned to the purpose of the planned lesson and driving towards student mastery of the objective.',
+            lookFors: [
+              'Curriculum pacing: The teacher delivers the lesson scheduled in the District Pacing Calendar.',
+              'Instructional pacing: The teacher allocates time across the lesson cycle, keeps the bell ringer and initial teach focused, and uses a timer to keep activities on track.',
+              'The teacher reserves enough time for students to apply their learning and complete the Demonstration of Learning during Close.'
+            ],
+            suggestedTags: ['Pacing Calendar Aligned', 'Timer Used', 'Time Reserved for DOL']
+          },
+          {
+            id: 'questions_tasks',
+            number: 4,
+            name: 'Questions & Tasks',
+            domainId: 'domain_inst',
+            domainName: 'Instructional Delivery',
+            descriptor: 'The teacher uses effective questions and tasks that intentionally target all aspect(s) of rigor (conceptual understanding, procedural skill and fluency, automaticity, application).',
+            lookFors: [
+              'The teacher asks questions aligned to the lesson objective that require students to recall key content, explain historical relationships, or apply what they know to an unfamiliar source or question.'
+            ],
+            suggestedTags: ['Objective-Aligned Rigor', 'Historical Relationships', 'Unfamiliar Primary Source']
+          },
+          {
+            id: 'frequent_practice',
+            number: 5,
+            name: 'Frequent Practice',
+            domainId: 'domain_inst',
+            domainName: 'Instructional Delivery',
+            descriptor: 'The teacher provides frequent opportunities for practice using multiple engagement strategies (independent, partner, and group practice; think-pair-share; turn and talk; everybody writes; whiteboard responses, show call with student work).',
+            lookFors: [
+              'The teacher gives students multiple opportunities throughout the lesson to recall, discuss, and apply social studies content.',
+              'The teacher facilitates the Think-Pair-Share opportunities embedded in the slideshow using clear Partner A/B roles and time limits.',
+              "The teacher uses ABCD accountability cards, Plickers, or finger signals to check every student's understanding."
+            ],
+            suggestedTags: ['Think-Pair-Share A/B', 'Everybody Writes', 'ABCD Cards / Plickers', 'Cold Call / Show Call']
+          },
+          {
+            id: 'breadth_practice',
+            number: 6,
+            name: 'Breadth of Practice',
+            domainId: 'domain_inst',
+            domainName: 'Instructional Delivery',
+            descriptor: 'All students are engaged in the practice required for mastery in ways that reveal their thinking (e.g. discussion, practice, justifying their thinking).',
+            lookFors: [
+              'The teacher structures Think-Pair-Share so both partners take a turn explaining their thinking using Partner A/B roles.',
+              'The teacher scans responses across the room and listens to multiple pairs to check whose thinking is visible and who still needs a prompt to participate.'
+            ],
+            suggestedTags: ['Both Partners Share (A/B)', 'Full-Room Scan', '100% Thinking Visible']
+          },
+          {
+            id: 'depth_practice',
+            number: 7,
+            name: 'Depth of Practice',
+            domainId: 'domain_inst',
+            domainName: 'Instructional Delivery',
+            descriptor: 'Students do the cognitive work of the lesson at the depth required for mastery by giving precise responses, engaging in reasoning and problem-solving, and persevering through rigorous tasks.',
+            lookFors: [
+              'When using Bucketing, students justify why a detail belongs in the bucket they named. When prompted, they return to the source or their notes to find evidence and refine their explanation.',
+              'During Apply or the Demonstration of Learning, students use what they learned to respond independently. When prompted with "What evidence supports your answer?" they return to the source or their notes and refine their response.'
+            ],
+            suggestedTags: ['Primary Source Evidence', 'Primary Source Bucketing', 'Independent Apply / DOL']
+          }
+        ]
+      },
+      {
+        id: 'domain_mon',
+        title: 'Monitoring & Responding',
+        subtitle: 'Aligned to T-TESS Domain 2',
+        question: 'Are all students able to demonstrate learning with teacher adjustments through formative assessments?',
+        components: [
+          {
+            id: 'cfu',
+            number: 8,
+            name: 'Checks for Understanding',
+            domainId: 'domain_mon',
+            domainName: 'Monitoring & Responding',
+            descriptor: 'The teacher deliberately checks for understanding through questioning, student work tasks, and formative assessments throughout the lesson.',
+            lookFors: [
+              'The teacher pauses at the checks for understanding embedded in the lesson to see whether students understand the content or skill tied to the lesson objective.',
+              'The teacher uses ABCD accountability cards, Plickers, or finger signals to collect a response from every student and identify patterns in their answers.',
+              'The teacher asks students to explain why they chose an answer and reviews evidence.'
+            ],
+            suggestedTags: ['Embedded Slide CFU', 'ABCD / Finger Signals Read', 'Students Justify Answer']
+          },
+          {
+            id: 'monitoring',
+            number: 9,
+            name: 'Monitoring',
+            domainId: 'domain_mon',
+            domainName: 'Monitoring & Responding',
+            descriptor: 'The teacher actively monitors student work by circulating the classroom, checking for understanding, and analyzing both verbal and written responses.',
+            lookFors: [
+              'The teacher circulates during Think-Pair-Share, listens to both partners explain their thinking, and asks follow-up questions to clarify their reasoning.',
+              'The teacher scans responses from ABCD accountability cards, Plickers, or finger signals to identify who understands and which misconceptions are common.',
+              'During Apply or the Demonstration of Learning, the teacher reviews student work across the room for accurate content, reasoning, and use of evidence.'
+            ],
+            suggestedTags: ['Active Circulation', 'Listens to Pairs & Probes', 'Reviews Written DOL Work']
+          },
+          {
+            id: 'responding',
+            number: 10,
+            name: 'Responding',
+            domainId: 'domain_mon',
+            domainName: 'Monitoring & Responding',
+            descriptor: 'The teacher makes adjustments in response to student learning (scaffolding understanding of abstract concepts by connecting to concrete and pictorial representations, providing language supports, giving individual feedback, addressing misconceptions, modeling, etc.)',
+            lookFors: [
+              'When several students show the same misconception during an embedded check for understanding, the teacher pauses to clarify it using an anchor chart, map, timeline, or brief think-aloud.',
+              'When an individual student needs support during Apply, the teacher gives specific feedback, points to a relevant section of their notes, white board, or anchor chart.',
+              'After providing support, the teacher checks again by having students explain the idea in their own words, revise their answer, or respond to a similar question.'
+            ],
+            suggestedTags: ['Anchor Chart Scaffold', 'Individual Feedback', 'Misconception Clarified']
+          }
+        ]
+      }
+    ];
+
+    const ALL_COMPONENTS = RUBRIC_DOMAINS.flatMap(d => d.components);
+
+    const GLOBAL_EVIDENCE_TAGS = [
+      'Think-Pair-Share A/B',
+      'ABCD Cards / Plickers',
+      'Timer Used',
+      'Primary Source Evidence',
+      'Cold Call / Show Call',
+      'Anchor Chart Scaffold',
+      'Individual Feedback',
+      'Bell Ringer On-Time',
+      'Time Reserved for DOL'
+    ];
+
+    const RATING_SCALE = [
+      { value: 0, label: 'Not Applicable / Not Observed', short: '0 N/A' },
+      { value: 1, label: 'Rarely / Seldom', short: '1' },
+      { value: 2, label: 'Sometimes / Occasionally', short: '2' },
+      { value: 3, label: 'Frequently / Almost Always', short: '3' },
+      { value: 4, label: 'Always / Consistently', short: '4' }
+    ];
+
+    const SAMPLE_PHOTOS = [
+      {
+        caption: 'Colonial Grievances Bucketing Anchor Chart',
+        dataUrl: 'data:image/svg+xml;utf8,' + encodeURIComponent(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="480" height="280" viewBox="0 0 480 280">' +
+          '<rect width="480" height="280" fill="#f8fafc" stroke="#cbd5e1" stroke-width="4"/>' +
+          '<rect x="20" y="18" width="440" height="40" rx="8" fill="#e0e7ff"/>' +
+          '<text x="240" y="43" font-family="sans-serif" font-size="15" font-weight="bold" fill="#1e3a8a" text-anchor="middle">G8 SS ANCHOR CHART: BUCKETING EVIDENCE</text>' +
+          '<rect x="24" y="72" width="205" height="184" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>' +
+          '<text x="126" y="96" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0f172a" text-anchor="middle">Political Grievances</text>' +
+          '<text x="38" y="128" font-family="sans-serif" font-size="12" fill="#334155">• Dissolved Assemblies</text>' +
+          '<text x="38" y="152" font-family="sans-serif" font-size="12" fill="#334155">• Denied Trial by Jury</text>' +
+          '<text x="38" y="180" font-family="sans-serif" font-size="11" fill="#059669" font-weight="bold">Source: DOI Excerpt Line 14</text>' +
+          '<rect x="250" y="72" width="205" height="184" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>' +
+          '<text x="352" y="96" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0f172a" text-anchor="middle">Economic Grievances</text>' +
+          '<text x="264" y="128" font-family="sans-serif" font-size="12" fill="#334155">• Taxation Without Consent</text>' +
+          '<text x="264" y="152" font-family="sans-serif" font-size="12" fill="#334155">• Cut Off Colonial Trade</text>' +
+          '<text x="264" y="180" font-family="sans-serif" font-size="11" fill="#059669" font-weight="bold">Source: Stamp Act Doc B</text>' +
+          '</svg>'
+        )
+      },
+      {
+        caption: 'Whiteboard Timer & Federalist No. 51 DOL Exit Ticket',
+        dataUrl: 'data:image/svg+xml;utf8,' + encodeURIComponent(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="480" height="280" viewBox="0 0 480 280">' +
+          '<rect width="480" height="280" fill="#ffffff" stroke="#cbd5e1" stroke-width="4"/>' +
+          '<rect x="20" y="18" width="290" height="40" rx="8" fill="#ecfdf5" stroke="#a7f3d0"/>' +
+          '<text x="32" y="43" font-family="sans-serif" font-size="13" font-weight="bold" fill="#065f46">OBJECTIVE: Analyze Federalist No. 51</text>' +
+          '<rect x="325" y="18" width="135" height="40" rx="8" fill="#fef3c7" stroke="#fde68a"/>' +
+          '<text x="392" y="43" font-family="monospace" font-size="15" font-weight="bold" fill="#92400e" text-anchor="middle">TIMER 08:00</text>' +
+          '<rect x="20" y="74" width="440" height="184" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>' +
+          '<text x="36" y="102" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1e3a8a">DEMONSTRATION OF LEARNING (DOL):</text>' +
+          '<text x="36" y="130" font-family="sans-serif" font-size="12" fill="#1e293b">1. Show your ABCD accountability card on teacher cue.</text>' +
+          '<text x="36" y="156" font-family="sans-serif" font-size="12" fill="#1e293b">2. Write 2 sentences citing specific text evidence:</text>' +
+          '<rect x="36" y="174" width="408" height="64" rx="6" fill="#ffffff" stroke="#cbd5e1"/>' +
+          '<text x="48" y="200" font-family="sans-serif" font-size="11" font-style="italic" fill="#475569">"According to Madison in Federalist No. 51, ____ proves that checks and balances prevent tyranny..."</text>' +
+          '</svg>'
+        )
+      }
+    ];
+
+    // =========================================================================
+    // 3. SEED DATA & STORAGE KEYS (8 REALISTIC SY26-27 OBSERVATIONS)
+    // =========================================================================
+    const STORAGE_KEYS = {
+      OBSERVATIONS: 'walkthroughiq_sy26_27_obs_v3',
+      TEACHERS: 'walkthroughiq_sy26_27_teachers_v3',
+      OBSERVERS: 'walkthroughiq_sy26_27_observers_v3',
+      DRAFT: 'walkthroughiq_sy26_27_draft_v3',
+      OUTBOX: 'walkthroughiq_sy26_27_outbox_v1',
+      SYNC_PING: 'walkthroughiq_sync_ping'
+    };
+
+    const DEFAULT_TEACHERS = ['L. Hawkins', 'K. Yoder', 'M. Schaefer'];
+    const DEFAULT_OBSERVERS = ['Q. Jones', 'L. Holmes', 'B. Germain', 'B. Gonzalez'];
+
+    const SAMPLE_OBSERVATIONS = [
+      {
+        id: 'obs-101',
+        teacher: 'L. Hawkins',
+        observer: 'Q. Jones',
+        date: '2026-11-12',
+        scheduledTime: '8:30 AM',
+        lessonCodes: 'AR1, AR2',
+        startTimestamp: '2026-11-12 08:32:10 AM',
+        endTimestamp: '2026-11-12 08:49:40 AM',
+        durationSeconds: 1050,
+        scores: {
+          routines: 4, classroom_management: 4, pacing: 3, questions_tasks: 3,
+          frequent_practice: 4, breadth_practice: 3, depth_practice: 2,
+          cfu: 3, monitoring: 3, responding: 2
+        },
+        notes: {
+          routines: 'Students grabbed Declaration handouts at door and started bell ringer within 40 seconds.',
+          depth_practice: 'Students categorized grievances accurately, though 4 pairs needed prompting to cite exact lines.',
+          responding: 'Circulated well; consider pausing whole group when 3 tables missed the Mercantilism question.'
+        },
+        componentTags: {
+          routines: ['Handouts Picked Up at Entry', 'Bell Ringer On-Time'],
+          frequent_practice: ['Think-Pair-Share A/B', 'ABCD Cards / Plickers']
+        },
+        duringNotes: 'High energy American Revolution source analysis lesson. Strong Partner A/B structure.',
+        glows: 'Seamless entry routine and crisp Think-Pair-Share Partner A/B time limits kept 100% of students talking.',
+        grows: 'During Bucketing, push students to return to the primary source text when asked "What evidence supports your answer?"',
+        nextActionStep: 'Post a visible sentence stem on the slide ("According to Source __, ...") for tomorrow\'s DOL.',
+        evidenceTags: ['Bell Ringer On-Time', 'Think-Pair-Share A/B', 'ABCD Cards / Plickers', 'Primary Source Evidence'],
+        photos: [SAMPLE_PHOTOS[0]]
+      },
+      {
+        id: 'obs-102',
+        teacher: 'K. Yoder',
+        observer: 'L. Holmes',
+        date: '2026-11-02',
+        scheduledTime: '9:25 AM',
+        lessonCodes: 'CON4',
+        startTimestamp: '2026-11-02 09:26:00 AM',
+        endTimestamp: '2026-11-02 09:41:30 AM',
+        durationSeconds: 930,
+        scores: {
+          routines: 4, classroom_management: 3, pacing: 2, questions_tasks: 3,
+          frequent_practice: 3, breadth_practice: 3, depth_practice: 3,
+          cfu: 3, monitoring: 3, responding: 3
+        },
+        notes: {
+          pacing: 'Direct teach ran 6 minutes over; DOL exit ticket felt rushed in final 3 minutes.',
+          cfu: 'Used finger signals for 3-branches check and called on two students to justify.'
+        },
+        componentTags: {
+          cfu: ['ABCD / Finger Signals Read', 'Students Justify Answer']
+        },
+        duringNotes: 'Constitutional Convention compromises lesson. Strong questioning around Great Compromise.',
+        glows: 'Deliberate finger-signal CFU followed by "Why did you choose B?" surfaced student reasoning clearly.',
+        grows: 'Tighten mini-lesson transitions using a visible countdown timer so at least 7 minutes remain for the DOL.',
+        nextActionStep: 'Set an 8-minute timer on the slideshow for the Guided Practice block in Lesson CON5.',
+        evidenceTags: ['Cold Call / Show Call', 'Primary Source Evidence', 'Individual Feedback'],
+        photos: []
+      },
+      {
+        id: 'obs-103',
+        teacher: 'M. Schaefer',
+        observer: 'B. Germain',
+        date: '2026-10-15',
+        scheduledTime: '10:20 AM',
+        lessonCodes: 'EC 7',
+        startTimestamp: '2026-10-15 10:21:15 AM',
+        endTimestamp: '2026-10-15 10:36:15 AM',
+        durationSeconds: 900,
+        scores: {
+          routines: 3, classroom_management: 3, pacing: 3, questions_tasks: 2,
+          frequent_practice: 2, breadth_practice: 2, depth_practice: 2,
+          cfu: 2, monitoring: 3, responding: 2
+        },
+        notes: {
+          frequent_practice: 'Mostly whole-group hand-raising; embed Partner A/B turn-and-talks before calling on volunteers.',
+          depth_practice: 'Questions focused primarily on recall of Triangular Trade definitions rather than source application.'
+        },
+        componentTags: {
+          monitoring: ['Active Circulation']
+        },
+        duringNotes: 'Early Colonial Economics (EC 7). Teacher circulated actively during map labeling.',
+        glows: 'Active circulation during independent map work; redirected off-task chatter calmly without halting instruction.',
+        grows: 'Increase Breadth of Practice by assigning Partner A and Partner B roles so every student verbalizes thinking.',
+        nextActionStep: 'Script two Partner A/B Think-Pair-Share prompts into tomorrow\'s slide deck.',
+        evidenceTags: ['Bell Ringer On-Time', 'Individual Feedback'],
+        photos: []
+      },
+      {
+        id: 'obs-104',
+        teacher: 'L. Hawkins',
+        observer: 'B. Gonzalez',
+        date: '2026-10-28',
+        scheduledTime: '1:15 PM',
+        lessonCodes: 'CON1, CON2',
+        startTimestamp: '2026-10-28 01:16:00 PM',
+        endTimestamp: '2026-10-28 01:34:00 PM',
+        durationSeconds: 1080,
+        scores: {
+          routines: 4, classroom_management: 4, pacing: 4, questions_tasks: 4,
+          frequent_practice: 4, breadth_practice: 4, depth_practice: 3,
+          cfu: 4, monitoring: 3, responding: 3
+        },
+        notes: {
+          pacing: 'Visible 8-minute timer kept Apply and DOL right on schedule.',
+          cfu: 'Used ABCD accountability cards across 100% of students before revealing Federalist answer.'
+        },
+        componentTags: {
+          pacing: ['Timer Used', 'Time Reserved for DOL'],
+          cfu: ['ABCD / Finger Signals Read']
+        },
+        duringNotes: 'Articles of Confederation weaknesses into Federalist Papers. Exemplary pacing and student accountability.',
+        glows: '100% participation via ABCD cards plus strict adherence to visible timer ensured full DOL completion.',
+        grows: 'During circulation, prompt early finishers to critique an opposing Federalist/Anti-Federalist viewpoint.',
+        nextActionStep: 'Share ABCD card protocol at Thursday\'s G8 Social Studies PLC.',
+        evidenceTags: ['Timer Used', 'ABCD Cards / Plickers', 'Time Reserved for DOL', 'Think-Pair-Share A/B'],
+        photos: [SAMPLE_PHOTOS[1]]
+      },
+      {
+        id: 'obs-105',
+        teacher: 'K. Yoder',
+        observer: 'Q. Jones',
+        date: '2026-10-22',
+        scheduledTime: '11:10 AM',
+        lessonCodes: 'AR5',
+        startTimestamp: '2026-10-22 11:12:00 AM',
+        endTimestamp: '2026-10-22 11:27:00 AM',
+        durationSeconds: 900,
+        scores: {
+          routines: 4, classroom_management: 4, pacing: 3, questions_tasks: 3,
+          frequent_practice: 3, breadth_practice: 2, depth_practice: 2,
+          cfu: 3, monitoring: 2, responding: 2
+        },
+        notes: {
+          breadth_practice: 'Partner A spoke in most pairs, but Partner B rarely had a structured turn.',
+          responding: 'Used timeline anchor chart effectively when clarifying Saratoga turning point.'
+        },
+        componentTags: {
+          responding: ['Anchor Chart Scaffold']
+        },
+        duringNotes: 'Turning points of the American Revolution. Good use of classroom timeline wall.',
+        glows: 'Pointed struggling students directly to the classroom timeline anchor chart to scaffold chronological reasoning.',
+        grows: 'Explicitly cue "Partner B, your turn to share for 30 seconds" during Think-Pair-Share.',
+        nextActionStep: 'Add Partner A / Partner B timer icons to discussion slides.',
+        evidenceTags: ['Anchor Chart Scaffold', 'Bell Ringer On-Time'],
+        photos: []
+      },
+      {
+        id: 'obs-106',
+        teacher: 'M. Schaefer',
+        observer: 'L. Holmes',
+        date: '2026-10-08',
+        scheduledTime: '2:10 PM',
+        lessonCodes: 'EC 4',
+        startTimestamp: '2026-10-08 02:11:00 PM',
+        endTimestamp: '2026-10-08 02:25:00 PM',
+        durationSeconds: 840,
+        scores: {
+          routines: 3, classroom_management: 3, pacing: 2, questions_tasks: 3,
+          frequent_practice: 2, breadth_practice: 2, depth_practice: 2,
+          cfu: 2, monitoring: 2, responding: 2
+        },
+        notes: {
+          pacing: 'Bell ringer review took 11 minutes, compressing partner source work.',
+          cfu: 'Need a whole-class check (finger signals or ABCD) before releasing to independent work.'
+        },
+        componentTags: {},
+        duringNotes: 'Afternoon section; students engaged once primary source excerpt was projected.',
+        glows: 'Positive narration ("Thank you Row 2 for having binders open to page 14") quickly settled afternoon transitions.',
+        grows: 'Cap bell ringer review at 4 minutes and add a whole-class CFU prior to independent practice.',
+        nextActionStep: 'Use a 4-minute timer for bell ringer + review tomorrow.',
+        evidenceTags: ['Timer Used', 'Primary Source Evidence'],
+        photos: []
+      },
+      {
+        id: 'obs-107',
+        teacher: 'L. Hawkins',
+        observer: 'B. Germain',
+        date: '2026-11-09',
+        scheduledTime: '8:30 AM',
+        lessonCodes: 'CON6',
+        startTimestamp: '2026-11-09 08:31:00 AM',
+        endTimestamp: '2026-11-09 08:47:30 AM',
+        durationSeconds: 990,
+        scores: {
+          routines: 4, classroom_management: 4, pacing: 4, questions_tasks: 4,
+          frequent_practice: 3, breadth_practice: 4, depth_practice: 3,
+          cfu: 3, monitoring: 4, responding: 3
+        },
+        notes: {
+          monitoring: 'Teacher carried a clipboard while circulating and logged misconceptions on Bill of Rights scenarios.'
+        },
+        componentTags: {
+          monitoring: ['Active Circulation', 'Reviews Written DOL Work']
+        },
+        duringNotes: 'Bill of Rights amendment matching & scenario analysis.',
+        glows: 'Systematic circulation with clipboard tracking allowed targeted 1-on-1 feedback during Apply.',
+        grows: 'Have students show-call exemplary written justifications under the document camera before exit.',
+        nextActionStep: 'Select 2 student exemplars during DOL to project and unpack.',
+        evidenceTags: ['Cold Call / Show Call', 'Individual Feedback', 'Time Reserved for DOL'],
+        photos: []
+      },
+      {
+        id: 'obs-108',
+        teacher: 'K. Yoder',
+        observer: 'B. Gonzalez',
+        date: '2026-10-30',
+        scheduledTime: '9:25 AM',
+        lessonCodes: 'CON3',
+        startTimestamp: '2026-10-30 09:26:30 AM',
+        endTimestamp: '2026-10-30 09:42:00 AM',
+        durationSeconds: 930,
+        scores: {
+          routines: 4, classroom_management: 3, pacing: 3, questions_tasks: 3,
+          frequent_practice: 3, breadth_practice: 3, depth_practice: 2,
+          cfu: 3, monitoring: 3, responding: 3
+        },
+        notes: {
+          depth_practice: 'Students identified checks and balances correctly; push for deeper explanation of why framers included them.'
+        },
+        componentTags: {
+          frequent_practice: ['Think-Pair-Share A/B']
+        },
+        duringNotes: 'Three Branches & Checks and Balances graphic organizer.',
+        glows: 'Clear verbal cues and structured Think-Pair-Share kept pairs focused on historical evidence.',
+        grows: 'Require students to cite the specific Constitutional Article in their written DOL explanation.',
+        nextActionStep: 'Add an Article citation requirement to tomorrow\'s exit ticket rubric.',
+        evidenceTags: ['Think-Pair-Share A/B', 'Anchor Chart Scaffold', 'Individual Feedback'],
+        photos: []
+      }
+    ];
+
+    // =========================================================================
+    // 4. APPLICATION STATE & INITIALIZATION
+    // =========================================================================
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialMode = urlParams.get('mode') === 'new' ? 'observe' : 'dashboard';
+    const preselectedTeacherParam = urlParams.get('teacher') || '';
+
+    let timerInterval = null;
+
+    let state = {
+      currentView: initialMode, // 'dashboard' | 'observe' | 'history' | 'analytics'
+      observations: [],
+      teachers: [],
+      observers: [],
+      savedDraft: null,
+      historySearch: '',
+      historyTeacherFilter: 'ALL',
+      analyticsFilter: {
+        teacher: 'ALL',
+        domain: 'ALL',
+        component: 'ALL',
+        observer: 'ALL',
+        tag: 'ALL',
+        preset: 'ALL',
+        startDate: '',
+        endDate: '',
+        sortCol: 'avgScore',
+        sortDir: 'asc'
+      },
+      form: null
+    };
+
+    function getReferenceTodayISO() {
+      // Uses current date if >= 2026-11-17, otherwise aligns cleanly with SY26-27 timeline
+      const nowISO = new Date().toISOString().slice(0, 10);
+      return nowISO < '2026-11-17' ? '2026-11-17' : nowISO;
+    }
+
+    function getTodayISO() {
+      return getReferenceTodayISO();
+    }
+
+    function getCurrentTimeFormatted() {
+      const d = new Date();
+      let hrs = d.getHours();
+      const mins = String(d.getMinutes()).padStart(2, '0');
+      const ampm = hrs >= 12 ? 'PM' : 'AM';
+      hrs = hrs % 12 || 12;
+      return `${hrs}:${mins} ${ampm}`;
+    }
+
+    function formatFullTimestamp(dateObj) {
+      const yyyy = dateObj.getFullYear();
+      const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
+      const dd = String(dateObj.getDate()).padStart(2, '0');
+      let hrs = dateObj.getHours();
+      const mins = String(dateObj.getMinutes()).padStart(2, '0');
+      const secs = String(dateObj.getSeconds()).padStart(2, '0');
+      const ampm = hrs >= 12 ? 'PM' : 'AM';
+      hrs = hrs % 12 || 12;
+      return `${yyyy}-${mm}-${dd} ${String(hrs).padStart(2, '0')}:${mins}:${secs} ${ampm}`;
+    }
+
+    function formatDuration(seconds) {
+      const total = Math.max(0, Math.floor(seconds || 0));
+      const m = Math.floor(total / 60);
+      const s = total % 60;
+      return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    }
+
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function showToast(message, type) {
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+      const item = document.createElement('div');
+      item.className = 'toast-item ' + (type || 'info');
+      item.textContent = message;
+      container.appendChild(item);
+      setTimeout(() => {
+        if (item.parentNode) item.parentNode.removeChild(item);
+      }, 3600);
+    }
+
+    function updateOfflineIndicator(label) {
+      const el = document.getElementById('offline-status-text');
+      if (el) el.textContent = label || 'Offline-Ready • Auto-Saved';
+    }
+
+    function createBlankFormState(startTimer, preselectedTeacher) {
+      const now = new Date();
+      return {
+        layoutMode: 'tabs', // 'tabs' | 'matrix'
+        activeDomainTab: 'domain_env',
+        teacher: preselectedTeacher || '',
+        observer: state.observers[0] || 'Q. Jones',
+        date: getTodayISO(),
+        scheduledTime: getCurrentTimeFormatted(),
+        lessonCodes: '',
+        startEpoch: startTimer ? now.getTime() : null,
+        startTimestamp: startTimer ? formatFullTimestamp(now) : '',
+        scores: {},
+        notes: {},
+        componentTags: {},
+        expandedLookFors: {},
+        evidenceTags: [],
+        duringNotes: '',
+        glows: '',
+        grows: '',
+        nextActionStep: '',
+        photos: []
+      };
+    }
+
+    function resetObservationFormState(startTimer, preselectedTeacher) {
+      state.form = createBlankFormState(startTimer, preselectedTeacher);
+      if (startTimer) startLiveTimerLoop();
+    }
+
+    function startLiveTimerLoop() {
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        if (state.currentView === 'observe' && state.form && state.form.startEpoch) {
+          const el = document.getElementById('live-timer-display');
+          if (el) {
+            const elapsed = Math.floor((Date.now() - state.form.startEpoch) / 1000);
+            el.textContent = formatDuration(elapsed);
+          }
+        }
+      }, 1000);
+    }
+
+    function persistActiveDraft() {
+      if (!state.form) return;
+      const draftPayload = {
+        ...state.form,
+        savedAt: formatFullTimestamp(new Date())
+      };
+      saveJSON(STORAGE_KEYS.DRAFT, draftPayload);
+      state.savedDraft = draftPayload;
+      updateOfflineIndicator('Auto-Saved ' + getCurrentTimeFormatted());
+    }
+
+    function resumeSavedDraft() {
+      const draft = loadJSON(STORAGE_KEYS.DRAFT, null);
+      if (!draft) {
+        showToast('No saved draft found.', 'error');
+        return;
+      }
+      state.form = {
+        ...createBlankFormState(true),
+        ...draft,
+        startEpoch: draft.startEpoch || Date.now()
+      };
+      state.currentView = 'observe';
+      startLiveTimerLoop();
+      renderApp();
+      showToast('Resumed unfinished walkthrough draft.', 'success');
+    }
+
+    function discardSavedDraft() {
+      safeRemoveItem(STORAGE_KEYS.DRAFT);
+      state.savedDraft = null;
+      renderApp();
+      showToast('Discarded saved draft.', 'info');
+    }
+
+    // =========================================================================
+    // 5. SCORING & CADENCE CALCULATIONS
+    // =========================================================================
+    function calcObservationAverage(obs) {
+      if (!obs || !obs.scores) return null;
+      const valid = ALL_COMPONENTS
+        .map(c => obs.scores[c.id])
+        .filter(v => typeof v === 'number' && v >= 1 && v <= 4);
+      if (valid.length === 0) return null;
+      return valid.reduce((a, b) => a + b, 0) / valid.length;
+    }
+
+    function calcDomainAverageForObs(obs, domainId) {
+      const domain = RUBRIC_DOMAINS.find(d => d.id === domainId);
+      if (!domain || !obs || !obs.scores) return null;
+      const valid = domain.components
+        .map(c => obs.scores[c.id])
+        .filter(v => typeof v === 'number' && v >= 1 && v <= 4);
+      if (valid.length === 0) return null;
+      return valid.reduce((a, b) => a + b, 0) / valid.length;
+    }
+
+    function getScoreBadgeInfo(avg) {
+      if (avg === null || avg === undefined) {
+        return { badgeClass: 'badge-slate', barColor: '#94a3b8' };
+      }
+      if (avg < 2.3) {
+        return { badgeClass: 'badge-rose', barColor: '#e11d48' };
+      }
+      if (avg < 2.85) {
+        return { badgeClass: 'badge-amber', barColor: '#f59e0b' };
+      }
+      if (avg < 3.45) {
+        return { badgeClass: 'badge-blue', barColor: '#2563eb' };
+      }
+      return { badgeClass: 'badge-emerald', barColor: '#059669' };
+    }
+
+    function getDaysBetweenISO(dateA, dateB) {
+      const a = new Date(dateA + 'T00:00:00');
+      const b = new Date(dateB + 'T00:00:00');
+      return Math.max(0, Math.round((b - a) / (1000 * 60 * 60 * 24)));
+    }
+
+    function getTeacherCadenceInfo(teacherName) {
+      const tObs = state.observations
+        .filter(o => o.teacher === teacherName)
+        .sort((a, b) => b.date.localeCompare(a.date));
+
+      const todayISO = getReferenceTodayISO();
+      const lastObs = tObs[0] || null;
+      const daysSince = lastObs ? getDaysBetweenISO(lastObs.date, todayISO) : null;
+
+      const avgs = tObs.map(calcObservationAverage).filter(v => v !== null);
+      const avg = avgs.length ? avgs.reduce((a, b) => a + b, 0) / avgs.length : null;
+
+      let status = 'Overdue (>25d)';
+      let badgeClass = 'badge-rose';
+      let rowClass = 'overdue';
+
+      if (daysSince !== null && daysSince <= 14) {
+        status = 'On Track (≤14d)';
+        badgeClass = 'badge-emerald';
+        rowClass = 'on-track';
+      } else if (daysSince !== null && daysSince <= 25) {
+        status = 'Due Soon (15–25d)';
+        badgeClass = 'badge-amber';
+        rowClass = 'due-soon';
+      } else if (daysSince === null) {
+        status = 'No Visits Yet';
+        badgeClass = 'badge-rose';
+        rowClass = 'overdue';
+      }
+
+      return {
+        name: teacherName,
+        count: tObs.length,
+        lastDate: lastObs ? lastObs.date : null,
+        daysSince,
+        avg,
+        status,
+        badgeClass,
+        rowClass
+      };
+    }
+
+    // =========================================================================
+    // 6. NAVIGATION & NEW-TAB LAUNCHER
+    // =========================================================================
+    function navigateTo(view) {
+      state.currentView = view;
+      if (view === 'observe' && (!state.form || !state.form.startEpoch)) {
+        resetObservationFormState(true);
+      }
+      renderApp();
+    }
+
+    function launchNewObservationTab(preselectedTeacher) {
+      const targetTeacher = preselectedTeacher || '';
+      try {
+        const baseUrl = window.location.href.split('?')[0];
+        const query = '?mode=new' + (targetTeacher ? '&teacher=' + encodeURIComponent(targetTeacher) : '');
+        const win = window.open(baseUrl + query, '_blank');
+        if (win) {
+          showToast('Opened a fresh observation session in a new browser tab!', 'success');
+          return;
+        }
+      } catch (e) {
+        // Fallback below if sandbox blocks window.open
+      }
+
+      // Safe In-App Fallback when popups are blocked by sandboxed preview iframe
+      resetObservationFormState(true, targetTeacher);
+      state.currentView = 'observe';
+      renderApp();
+      showToast('Started new live observation workspace (new-tab popup was restricted by preview sandbox).', 'info');
+    }
+
+    // =========================================================================
+    // 7. VIEW 1: EXECUTIVE COMMAND CENTER DASHBOARD
+    // =========================================================================
+    function renderDashboard() {
+      const totalObs = state.observations.length;
+      const allAvgs = state.observations.map(calcObservationAverage).filter(v => v !== null);
+      const campusAvg = allAvgs.length ? allAvgs.reduce((a, b) => a + b, 0) / allAvgs.length : 0;
+
+      // Component averages to identify top growth need
+      const compAverages = ALL_COMPONENTS.map(comp => {
+        const vals = state.observations
+          .map(o => o.scores && o.scores[comp.id])
+          .filter(v => typeof v === 'number' && v >= 1 && v <= 4);
+        const avg = vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : null;
+        return { ...comp, avg, count: vals.length };
+      }).filter(c => c.avg !== null).sort((a, b) => a.avg - b.avg);
+
+      const lowestComp = compAverages[0] || null;
+
+      // Teacher Cadence List
+      const teacherNames = Array.from(new Set([...state.teachers, ...state.observations.map(o => o.teacher)]));
+      const teacherCadenceList = teacherNames.map(getTeacherCadenceInfo);
+      const overdueCount = teacherCadenceList.filter(t => t.daysSince === null || t.daysSince > 25).length;
+
+      // Observer Activity Breakdown
+      const observerNames = Array.from(new Set([...state.observers, ...state.observations.map(o => o.observer)]));
+      const observerStats = observerNames.map(name => {
+        const obsList = state.observations.filter(o => o.observer === name).sort((a, b) => b.date.localeCompare(a.date));
+        const avgs = obsList.map(calcObservationAverage).filter(v => v !== null);
+        const avgGiven = avgs.length ? avgs.reduce((a, b) => a + b, 0) / avgs.length : null;
+        const totalMins = Math.round(obsList.reduce((sum, o) => sum + (o.durationSeconds || 0), 0) / 60);
+        return {
+          name,
+          count: obsList.length,
+          avgGiven,
+          totalMins,
+          lastActive: obsList[0] ? obsList[0].date : '—'
+        };
+      }).sort((a, b) => b.count - a.count);
+
+      const activeObserversCount = observerStats.filter(o => o.count > 0).length;
+      const recentObs = [...state.observations].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 6);
+
+      return `
+        <div class="stack-lg">
+          ${state.savedDraft ? `
+            <div class="card card-padded" style="background: #fffbeb; border-color: #fde68a; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;">
+              <div>
+                <span class="badge badge-amber">Unfinished Walkthrough Draft Saved Offline</span>
+                <div style="font-weight: 800; font-size: 14px; margin-top: 4px; color: #78350f;">
+                  Teacher: ${escapeHtml(state.savedDraft.teacher || 'Unselected')} • Lesson: ${escapeHtml(state.savedDraft.lessonCodes || 'Unspecified')} • Saved: ${escapeHtml(state.savedDraft.savedAt || '')}
+                </div>
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <button class="btn btn-primary btn-sm" onclick="resumeSavedDraft()">Resume Draft →</button>
+                <button class="btn btn-outline btn-sm" onclick="discardSavedDraft()">Discard</button>
+              </div>
+            </div>
+          ` : ''}
+
+          <!-- Hero Command Banner -->
+          <div class="hero-banner">
+            <div class="hero-copy">
+              <div class="hero-pill">
+                <span class="status-dot"></span>
+                <span>SY26-27 G8 Social Studies • Instructional Quality • T-TESS Aligned</span>
+              </div>
+              <h1 class="hero-title">WalkthroughIQ Command Center</h1>
+              <p class="hero-desc">
+                Launch non-linear classroom observations in a dedicated tab, capture evidence tags and classroom artifacts offline, and track teacher growth across all 10 G8 Social Studies rubric components.
+              </p>
+            </div>
+
+            <div class="hero-actions-grid">
+              <button class="quick-action-card primary-card" onclick="launchNewObservationTab()">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <span style="font-size:18px; font-weight:800;">+</span>
+                  <span style="font-size:11px; font-weight:800; text-transform:uppercase; opacity:0.9;">New Tab ↗</span>
+                </div>
+                <div>
+                  <div style="font-weight:800; font-size:14px;">New Observation</div>
+                  <div style="font-size:11px; opacity:0.9; margin-top:2px;">Live timer, tabs &amp; matrix</div>
+                </div>
+              </button>
+
+              <button class="quick-action-card" onclick="navigateTo('history')">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <span class="badge badge-emerald">${totalObs} Logs</span>
+                </div>
+                <div>
+                  <div style="font-weight:800; font-size:14px; color:var(--text-primary);">Past Observations</div>
+                  <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">Review &amp; print feedback</div>
+                </div>
+              </button>
+
+              <button class="quick-action-card" onclick="navigateTo('analytics')">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <span class="badge badge-amber">Data Tables</span>
+                </div>
+                <div>
+                  <div style="font-weight:800; font-size:14px; color:var(--text-primary);">Analytics &amp; Trends</div>
+                  <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">Filter &amp; export CSV</div>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Executive KPI Summary Cards -->
+          <div class="grid-4">
+            <div class="card card-padded">
+              <div class="kpi-label">Total Observations</div>
+              <div class="kpi-value tabular-nums">${totalObs}</div>
+              <div class="kpi-meta">Across ${teacherNames.length} G8 Social Studies teachers</div>
+            </div>
+
+            <div class="card card-padded">
+              <div class="kpi-label">Campus Avg Score</div>
+              <div class="kpi-value tabular-nums">${campusAvg.toFixed(2)} <span style="font-size:14px; font-weight:600; color:var(--text-muted);">/ 4.00</span></div>
+              <div class="kpi-meta">Excludes 0 (N/A • Not Observed)</div>
+            </div>
+
+            <div class="card card-padded" style="border-color: var(--amber-200);">
+              <div class="kpi-label" style="color: var(--amber-800);">Top Campus Growth Need</div>
+              <div style="font-size:17px; font-weight:800; color:var(--text-primary); margin-top:8px;">
+                ${lowestComp ? escapeHtml(lowestComp.number + '. ' + lowestComp.name) : 'No Data'}
+              </div>
+              <div class="kpi-meta tabular-nums">
+                ${lowestComp ? `Avg: <strong>${lowestComp.avg.toFixed(2)}</strong> • ${escapeHtml(lowestComp.domainName)}` : 'Log an observation to view'}
+              </div>
+            </div>
+
+            <div class="card card-padded">
+              <div class="kpi-label">Active Observers &amp; Cadence</div>
+              <div class="kpi-value tabular-nums">${activeObserversCount} <span style="font-size:14px; font-weight:600; color:var(--text-muted);">/ ${observerNames.length} Admins</span></div>
+              <div class="kpi-meta">${overdueCount} teacher${overdueCount === 1 ? '' : 's'} &gt;25 days since last visit</div>
+            </div>
+          </div>
+
+          <!-- Middle Two-Column Section: Observation Equity & Cadence Alerts + Observer Activity -->
+          <div class="grid-2">
+            <!-- Observation Equity & Cadence Alerts -->
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">Observation Equity &amp; Cadence Alerts</h2>
+                  <p class="card-subtitle">Tracks days since last classroom visit to ensure equitable coaching coverage</p>
+                </div>
+                <button class="btn btn-soft-indigo btn-sm" onclick="openRosterModal()">+ Manage Roster</button>
+              </div>
+
+              <div class="card-padded stack-md">
+                ${teacherCadenceList.map(t => {
+                  const scoreInfo = getScoreBadgeInfo(t.avg);
+                  return `
+                    <div class="cadence-item ${t.rowClass}">
+                      <div>
+                        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                          <strong style="font-size:14px; color:var(--text-primary);">${escapeHtml(t.name)}</strong>
+                          <span class="badge ${t.badgeClass}">${escapeHtml(t.status)}</span>
+                        </div>
+                        <div style="font-size:12px; color:var(--text-secondary); margin-top:4px;" class="tabular-nums">
+                          <strong>${t.daysSince !== null ? t.daysSince + ' days' : 'Never'}</strong> since last visit
+                          ${t.lastDate ? '(' + escapeHtml(t.lastDate) + ')' : ''} • Total visits: <strong>${t.count}</strong>
+                        </div>
+                      </div>
+                      <div style="display:flex; align-items:center; gap:8px;">
+                        <span class="badge ${scoreInfo.badgeClass} tabular-nums">
+                          Avg: ${t.avg !== null ? t.avg.toFixed(2) : '—'}
+                        </span>
+                        <button class="btn btn-primary btn-sm" onclick="launchNewObservationTab('${escapeHtml(t.name)}')">
+                          Start Visit →
+                        </button>
+                      </div>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+
+              <div style="padding: 12px 22px; background: #f8fafc; border-top: 1px solid var(--border-light); display:flex; justify-content:space-between; align-items:center; font-size:11px; color:var(--text-muted); border-bottom-left-radius:16px; border-bottom-right-radius:16px;">
+                <span>Thresholds: ≤14d On Track • 15–25d Due Soon • &gt;25d Overdue</span>
+                <button style="background:none; border:none; color:var(--text-secondary); text-decoration:underline; cursor:pointer; font-size:11px; font-weight:700;" onclick="resetDemoData()">
+                  Reset Sample Data
+                </button>
+              </div>
+            </div>
+
+            <!-- Observer Activity & Calibration Breakdown -->
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">Observer Activity &amp; Calibration Breakdown</h2>
+                  <p class="card-subtitle">Observation count, average rating given, and total coaching minutes per administrator</p>
+                </div>
+                <button class="btn btn-outline btn-sm" onclick="navigateTo('analytics')">Full Analytics →</button>
+              </div>
+
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Observer</th>
+                      <th style="text-align:center;">Observations</th>
+                      <th style="text-align:center;">Avg Rating</th>
+                      <th style="text-align:center;">Total Time</th>
+                      <th style="text-align:right;">Last Active</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    ${observerStats.map(obs => {
+                      const pct = totalObs > 0 ? Math.round((obs.count / totalObs) * 100) : 0;
+                      return `
+                        <tr>
+                          <td>
+                            <div style="font-weight:800; color:var(--text-primary);">${escapeHtml(obs.name)}</div>
+                            <div style="width:90px; height:5px; background:var(--bg-subtle); border-radius:99px; margin-top:4px; overflow:hidden;">
+                              <div style="width:${pct}%; height:100%; background:var(--indigo-600);"></div>
+                            </div>
+                          </td>
+                          <td style="text-align:center;">
+                            <span class="badge badge-indigo tabular-nums">${obs.count}</span>
+                          </td>
+                          <td style="text-align:center; font-weight:700;" class="tabular-nums">
+                            ${obs.avgGiven !== null ? obs.avgGiven.toFixed(2) : '—'}
+                          </td>
+                          <td style="text-align:center;" class="tabular-nums">${obs.totalMins}m</td>
+                          <td style="text-align:right; color:var(--text-muted);" class="tabular-nums">${escapeHtml(obs.lastActive)}</td>
+                        </tr>
+                      `;
+                    }).join('')}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Observations Table -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h2 class="card-title">Recent Classroom Observations</h2>
+                <p class="card-subtitle">Click any observation row to open the printable Post-Observation Teacher Feedback Report</p>
+              </div>
+              <button class="btn btn-soft-indigo btn-sm" onclick="navigateTo('history')">View All (${totalObs}) →</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Date &amp; Duration</th>
+                    <th>Teacher</th>
+                    <th>Observer</th>
+                    <th>Lesson Code(s) &amp; Evidence</th>
+                    <th style="text-align:center;">Avg Score</th>
+                    <th style="text-align:right;">Report</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${recentObs.map(obs => {
+                    const avg = calcObservationAverage(obs);
+                    const scoreInfo = getScoreBadgeInfo(avg);
+                    const tagCount = (obs.evidenceTags || []).length;
+                    const photoCount = (obs.photos || []).length;
+                    return `
+                      <tr class="clickable-row" onclick="openReportModal('${obs.id}')">
+                        <td class="tabular-nums">
+                          <div style="font-weight:800; color:var(--text-primary);">${escapeHtml(obs.date)}</div>
+                          <div style="font-size:11px; color:var(--text-muted);">${escapeHtml(obs.scheduledTime)} (${formatDuration(obs.durationSeconds)})</div>
+                        </td>
+                        <td style="font-weight:800; color:var(--text-primary);">${escapeHtml(obs.teacher)}</td>
+                        <td>${escapeHtml(obs.observer)}</td>
+                        <td>
+                          <span class="badge badge-slate" style="font-family:monospace;">${escapeHtml(obs.lessonCodes || 'N/A')}</span>
+                          ${tagCount > 0 ? `<span class="badge badge-indigo">${tagCount} tags</span>` : ''}
+                          ${photoCount > 0 ? `<span class="badge badge-emerald">${photoCount} photo</span>` : ''}
+                        </td>
+                        <td style="text-align:center;">
+                          <span class="badge ${scoreInfo.badgeClass} tabular-nums">${avg !== null ? avg.toFixed(2) : 'N/A'}</span>
+                        </td>
+                        <td style="text-align:right; font-weight:700; color:var(--indigo-700);">Open Report →</td>
+                      </tr>
+                    `;
+                  }).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // =========================================================================
+    // 8. VIEW 2: NEW OBSERVATION FORM (TABS + SPREADSHEET MATRIX + TAGS/PHOTOS)
+    // =========================================================================
+    function renderObservationForm() {
+      const f = state.form;
+      const elapsedSecs = f.startEpoch ? Math.floor((Date.now() - f.startEpoch) / 1000) : 0;
+      const scoredCount = ALL_COMPONENTS.filter(c => typeof f.scores[c.id] === 'number').length;
+      const validNums = ALL_COMPONENTS.map(c => f.scores[c.id]).filter(v => typeof v === 'number' && v >= 1 && v <= 4);
+      const liveAvg = validNums.length ? (validNums.reduce((a, b) => a + b, 0) / validNums.length).toFixed(2) : '—';
+
+      return `
+        <div class="stack-md">
+          <!-- Session & Live Timer Top Bar -->
+          <div class="card card-padded">
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; padding-bottom:14px; border-bottom:1px solid var(--border-light);">
+              <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+                <span class="badge badge-emerald tabular-nums" style="padding:6px 12px; font-size:12px;">
+                  <span class="status-dot"></span>
+                  LIVE SESSION: <strong id="live-timer-display">${formatDuration(elapsedSecs)}</strong>
+                </span>
+                <span style="font-size:12px; color:var(--text-secondary);" class="tabular-nums">
+                  <strong>Started:</strong> ${escapeHtml(f.startTimestamp || 'Just now')}
+                </span>
+                <span style="font-size:12px; color:var(--text-secondary);" class="tabular-nums">
+                  <strong>Scored:</strong> <span style="color:var(--indigo-700); font-weight:800;">${scoredCount}/10</span> • <strong>Live Avg:</strong> ${liveAvg}
+                </span>
+              </div>
+
+              <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                <div style="display:inline-flex; background:var(--bg-subtle); padding:3px; border-radius:10px; border:1px solid var(--border-light);">
+                  <button class="btn btn-sm" style="${f.layoutMode === 'tabs' ? 'background:#fff; color:var(--indigo-700); border-color:var(--border-light); box-shadow:var(--shadow-xs);' : 'background:transparent; color:var(--text-secondary);'}" onclick="setFormLayoutMode('tabs')">
+                    1. Domain Tabs
+                  </button>
+                  <button class="btn btn-sm" style="${f.layoutMode === 'matrix' ? 'background:#fff; color:var(--indigo-700); border-color:var(--border-light); box-shadow:var(--shadow-xs);' : 'background:transparent; color:var(--text-secondary);'}" onclick="setFormLayoutMode('matrix')">
+                    2. Spreadsheet Matrix (All 10)
+                  </button>
+                </div>
+
+                <button class="btn btn-emerald" onclick="submitObservation()">
+                  ✓ Complete &amp; Submit
+                </button>
+              </div>
+            </div>
+
+            <!-- Observation Metadata Bar (Questions 1-5) -->
+            <div class="grid-5" style="padding-top:14px;">
+              <div>
+                <label class="field-label">1. Teacher Observed *</label>
+                <div style="display:flex; gap:4px;">
+                  <select class="select" onchange="updateFormField('teacher', this.value)">
+                    <option value="">Select Teacher...</option>
+                    ${state.teachers.map(t => `<option value="${escapeHtml(t)}" ${f.teacher === t ? 'selected' : ''}>${escapeHtml(t)}</option>`).join('')}
+                  </select>
+                  <button type="button" class="btn btn-outline btn-sm" onclick="openRosterModal()" title="Add Teacher">+</button>
+                </div>
+              </div>
+
+              <div>
+                <label class="field-label">2. Observer Name *</label>
+                <div style="display:flex; gap:4px;">
+                  <select class="select" onchange="updateFormField('observer', this.value)">
+                    <option value="">Select Observer...</option>
+                    ${state.observers.map(o => `<option value="${escapeHtml(o)}" ${f.observer === o ? 'selected' : ''}>${escapeHtml(o)}</option>`).join('')}
+                  </select>
+                  <button type="button" class="btn btn-outline btn-sm" onclick="openRosterModal()" title="Add Observer">+</button>
+                </div>
+              </div>
+
+              <div>
+                <label class="field-label">3. Date of Observation *</label>
+                <input type="date" class="input tabular-nums" value="${escapeHtml(f.date)}" onchange="updateFormField('date', this.value)" />
+              </div>
+
+              <div>
+                <label class="field-label">4. Scheduled Class Time *</label>
+                <input type="text" class="input" placeholder="e.g. 8:30 AM" value="${escapeHtml(f.scheduledTime)}" oninput="updateFormField('scheduledTime', this.value)" />
+              </div>
+
+              <div>
+                <label class="field-label">5. Curriculum Lesson Code(s) *</label>
+                <input type="text" class="input" placeholder="e.g., EC 7, AR1, CON4" value="${escapeHtml(f.lessonCodes)}" oninput="updateFormField('lessonCodes', this.value)" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Rating Legend Strip -->
+          <div style="background:var(--indigo-50); border:1px solid var(--indigo-200); border-radius:12px; padding:10px 16px; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; font-size:12px; color:var(--text-secondary);">
+            <strong style="color:var(--indigo-800); text-transform:uppercase; font-size:11px;">G8 SS Rubric Scale:</strong>
+            <div style="display:flex; gap:14px; flex-wrap:wrap;">
+              <span><strong>0:</strong> Not Applicable / Not Observed</span>
+              <span><strong style="color:var(--rose-700);">1:</strong> Rarely / Seldom</span>
+              <span><strong style="color:var(--amber-700);">2:</strong> Sometimes / Occasionally</span>
+              <span><strong style="color:var(--blue-700);">3:</strong> Frequently / Almost Always</span>
+              <span><strong style="color:var(--emerald-700);">4:</strong> Always / Consistently</span>
+            </div>
+          </div>
+
+          ${f.layoutMode === 'tabs' ? renderDomainTabsWorkspace() : renderSpreadsheetMatrixWorkspace()}
+        </div>
+      `;
+    }
+
+    function renderDomainTabsWorkspace() {
+      const f = state.form;
+      const activeTab = f.activeDomainTab;
+
+      const domainTabHtml = RUBRIC_DOMAINS.map(domain => {
+        const total = domain.components.length;
+        const done = domain.components.filter(c => typeof f.scores[c.id] === 'number').length;
+        const isActive = activeTab === domain.id;
+        return `
+          <button type="button" class="domain-tab-btn ${isActive ? 'active' : ''}" onclick="setActiveDomainTab('${domain.id}')">
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:6px;">
+              <span style="font-size:10px; font-weight:800; text-transform:uppercase; opacity:${isActive ? '0.85' : '0.65'};">${escapeHtml(domain.subtitle)}</span>
+              <span class="badge ${isActive ? 'badge-indigo' : done === total ? 'badge-emerald' : 'badge-slate'} tabular-nums" style="${isActive ? 'background:rgba(255,255,255,0.2); color:#fff; border-color:transparent;' : ''}">
+                ${done}/${total} scored
+              </span>
+            </div>
+            <div style="font-weight:800; font-size:14px; margin-top:5px;">${escapeHtml(domain.title)}</div>
+          </button>
+        `;
+      }).join('');
+
+      const feedbackNotesDone = [f.duringNotes, f.glows, f.grows, f.nextActionStep].filter(v => v && v.trim().length > 0).length;
+      const artifactCount = f.evidenceTags.length + f.photos.length;
+      const isFeedbackActive = activeTab === 'feedback';
+
+      const feedbackTabHtml = `
+        <button type="button" class="domain-tab-btn ${isFeedbackActive ? 'active' : ''}" onclick="setActiveDomainTab('feedback')">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:6px;">
+            <span style="font-size:10px; font-weight:800; text-transform:uppercase; opacity:${isFeedbackActive ? '0.85' : '0.65'};">Coaching &amp; Artifacts</span>
+            <span class="badge ${isFeedbackActive ? 'badge-indigo' : (feedbackNotesDone + artifactCount) > 0 ? 'badge-emerald' : 'badge-slate'} tabular-nums" style="${isFeedbackActive ? 'background:rgba(255,255,255,0.2); color:#fff; border-color:transparent;' : ''}">
+              ${feedbackNotesDone}/4 notes${artifactCount > 0 ? ' • ' + artifactCount + ' items' : ''}
+            </span>
+          </div>
+          <div style="font-weight:800; font-size:14px; margin-top:5px;">4. Coaching, Evidence &amp; Photos</div>
+        </button>
+      `;
+
+      let bodyPanel = '';
+      if (isFeedbackActive) {
+        bodyPanel = renderFeedbackAndArtifactsPanel();
+      } else {
+        const domain = RUBRIC_DOMAINS.find(d => d.id === activeTab) || RUBRIC_DOMAINS[0];
+        bodyPanel = `
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <span style="font-size:11px; font-weight:800; text-transform:uppercase; color:var(--indigo-700);">${escapeHtml(domain.subtitle)}</span>
+                <h2 class="card-title" style="font-size:18px;">${escapeHtml(domain.title)}</h2>
+              </div>
+              <p class="card-subtitle" style="max-width:540px; font-style:italic;">"${escapeHtml(domain.question)}"</p>
+            </div>
+            <div>
+              ${domain.components.map(comp => renderComponentCard(comp)).join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      return `
+        <div class="stack-md">
+          <div class="domain-tabs-row">
+            ${domainTabHtml}
+            ${feedbackTabHtml}
+          </div>
+
+          ${bodyPanel}
+
+          <div class="card card-padded" style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+            <span style="font-size:12px; color:var(--text-muted);">
+              Jump freely between tabs or switch to <button type="button" style="background:none; border:none; color:var(--indigo-700); font-weight:800; text-decoration:underline; cursor:pointer; padding:0;" onclick="setFormLayoutMode('matrix')">Spreadsheet Matrix View</button> at any time.
+            </span>
+            <div style="display:flex; gap:8px;">
+              <button type="button" class="btn btn-outline btn-sm" onclick="clearCurrentObservationForm()">Clear Form</button>
+              <button type="button" class="btn btn-emerald" onclick="submitObservation()">✓ Complete &amp; Save Observation</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderComponentCard(comp) {
+      const f = state.form;
+      const currentScore = f.scores[comp.id];
+      const currentNote = f.notes[comp.id] || '';
+      const selectedCompTags = f.componentTags[comp.id] || [];
+      const showLookFors = f.expandedLookFors[comp.id] !== false;
+
+      return `
+        <div class="component-row">
+          <div class="component-split">
+            <div>
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:8px;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <span class="badge badge-indigo tabular-nums" style="font-size:12px;">${comp.number}</span>
+                  <h3 style="margin:0; font-size:16px; font-weight:800; color:var(--text-primary);">${escapeHtml(comp.name)}</h3>
+                </div>
+                <button type="button" style="background:none; border:none; color:var(--indigo-700); font-size:12px; font-weight:700; cursor:pointer;" onclick="toggleLookFors('${comp.id}')">
+                  ${showLookFors ? 'Hide' : 'Show'} G8 SS Look-Fors
+                </button>
+              </div>
+
+              <p style="margin:8px 0 10px; font-size:13px; color:var(--text-secondary);">${escapeHtml(comp.descriptor)}</p>
+
+              <!-- Component Quick-Tap Evidence Tags -->
+              <div style="margin-top:8px;">
+                <span class="field-label" style="font-size:10px;">Quick-Tap Evidence Tags:</span>
+                <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                  ${(comp.suggestedTags || []).map(tag => {
+                    const active = selectedCompTags.includes(tag);
+                    return `
+                      <button type="button" class="tag-pill ${active ? 'active' : ''}" onclick="toggleComponentTag('${comp.id}', '${escapeHtml(tag)}')">
+                        ${active ? '✓ ' : '+ '}${escapeHtml(tag)}
+                      </button>
+                    `;
+                  }).join('')}
+                </div>
+              </div>
+
+              ${showLookFors ? `
+                <div class="lookfor-box">
+                  <strong style="color:var(--sky-800); font-size:11px; text-transform:uppercase;">G8 Social Studies Look-Fors</strong>
+                  <ul>
+                    ${comp.lookFors.map(lf => `<li>${escapeHtml(lf)}</li>`).join('')}
+                  </ul>
+                </div>
+              ` : ''}
+            </div>
+
+            <div class="score-panel">
+              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+                <span class="field-label" style="margin:0;">Select Rating</span>
+                <span style="font-size:11px; font-weight:800; color:var(--indigo-700);">
+                  ${typeof currentScore === 'number' ? escapeHtml(RATING_SCALE.find(r => r.value === currentScore).label) : 'Not scored'}
+                </span>
+              </div>
+
+              <div class="rating-grid">
+                ${RATING_SCALE.map(r => {
+                  const isSel = currentScore === r.value;
+                  return `
+                    <button type="button" class="rating-btn tabular-nums ${isSel ? 'sel-' + r.value : ''}" title="${escapeHtml(r.label)}" onclick="setComponentScore('${comp.id}', ${r.value})">
+                      ${r.short}
+                    </button>
+                  `;
+                }).join('')}
+              </div>
+
+              <div style="margin-top:12px;">
+                <label class="field-label">${escapeHtml(comp.name)} Evidence Notes (Optional)</label>
+                <textarea rows="2" class="textarea" placeholder="Record timestamped classroom evidence or student responses..." oninput="setComponentNote('${comp.id}', this.value)">${escapeHtml(currentNote)}</textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderSpreadsheetMatrixWorkspace() {
+      const f = state.form;
+      return `
+        <div class="stack-md">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h2 class="card-title">Spreadsheet Matrix View — All 10 Rubric Components</h2>
+                <p class="card-subtitle">Score all 10 components on one screen without switching tabs; expand G8 SS Look-Fors inline as needed</p>
+              </div>
+              <button type="button" class="btn btn-soft-indigo btn-sm" onclick="toggleAllMatrixLookFors()">Toggle All Look-Fors</button>
+            </div>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width:42px;">#</th>
+                    <th style="min-width:260px;">Component, Tags &amp; Look-Fors</th>
+                    <th style="min-width:260px; text-align:center;">Score (0 = N/A • 1–4 Scale)</th>
+                    <th style="min-width:280px;">Component Evidence Notes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${RUBRIC_DOMAINS.map(domain => `
+                    <tr style="background:var(--indigo-50);">
+                      <td colspan="4" style="padding:9px 16px; font-weight:800; font-size:12px; color:var(--indigo-800);">
+                        ${escapeHtml(domain.title)} <span style="font-weight:600; color:var(--indigo-600);">(${escapeHtml(domain.subtitle)})</span>
+                      </td>
+                    </tr>
+                    ${domain.components.map(comp => {
+                      const currentScore = f.scores[comp.id];
+                      const currentNote = f.notes[comp.id] || '';
+                      const selectedCompTags = f.componentTags[comp.id] || [];
+                      const isLookForOpen = !!f.expandedLookFors[comp.id];
+                      return `
+                        <tr>
+                          <td class="tabular-nums" style="font-weight:800; color:var(--text-muted);">${comp.number}</td>
+                          <td>
+                            <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:8px;">
+                              <div>
+                                <div style="font-weight:800; color:var(--text-primary); font-size:14px;">${escapeHtml(comp.name)}</div>
+                                <div style="font-size:12px; color:var(--text-muted); margin-top:2px;">${escapeHtml(comp.descriptor)}</div>
+                              </div>
+                              <button type="button" class="btn btn-soft-sky btn-sm" style="padding:4px 8px; font-size:11px; flex-shrink:0;" onclick="toggleLookFors('${comp.id}')">
+                                Look-Fors
+                              </button>
+                            </div>
+                            <div style="display:flex; flex-wrap:wrap; gap:4px; margin-top:8px;">
+                              ${(comp.suggestedTags || []).map(tag => {
+                                const active = selectedCompTags.includes(tag);
+                                return `
+                                  <button type="button" class="tag-pill ${active ? 'active' : ''}" style="padding:3px 8px; font-size:10px;" onclick="toggleComponentTag('${comp.id}', '${escapeHtml(tag)}')">
+                                    ${active ? '✓ ' : '+ '}${escapeHtml(tag)}
+                                  </button>
+                                `;
+                              }).join('')}
+                            </div>
+                            ${isLookForOpen ? `
+                              <div class="lookfor-box">
+                                <strong style="color:var(--sky-800); font-size:11px;">G8 SS Look-Fors:</strong>
+                                <ul>
+                                  ${comp.lookFors.map(lf => `<li>${escapeHtml(lf)}</li>`).join('')}
+                                </ul>
+                              </div>
+                            ` : ''}
+                          </td>
+                          <td>
+                            <div class="rating-grid">
+                              ${RATING_SCALE.map(r => {
+                                const isSel = currentScore === r.value;
+                                return `
+                                  <button type="button" class="rating-btn tabular-nums ${isSel ? 'sel-' + r.value : ''}" title="${escapeHtml(r.label)}" onclick="setComponentScore('${comp.id}', ${r.value})">
+                                    ${r.value === 0 ? 'N/A' : r.value}
+                                  </button>
+                                `;
+                              }).join('')}
+                            </div>
+                          </td>
+                          <td>
+                            <input type="text" class="input" value="${escapeHtml(currentNote)}" placeholder="Notes for ${escapeHtml(comp.name)}..." oninput="setComponentNote('${comp.id}', this.value)" />
+                          </td>
+                        </tr>
+                      `;
+                    }).join('')}
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          ${renderFeedbackAndArtifactsPanel()}
+
+          <div style="display:flex; justify-content:flex-end;">
+            <button type="button" class="btn btn-emerald" onclick="submitObservation()">✓ Complete &amp; Save Observation</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderFeedbackAndArtifactsPanel() {
+      const f = state.form;
+      return `
+        <div class="stack-md">
+          <div class="card card-padded stack-md">
+            <div style="border-bottom:1px solid var(--border-light); padding-bottom:10px;">
+              <span style="font-size:11px; font-weight:800; text-transform:uppercase; color:var(--indigo-700);">Questions 26–29 • Coaching &amp; Evidence Tags</span>
+              <h2 class="card-title" style="font-size:18px;">Post-Observation Feedback &amp; Action Step</h2>
+            </div>
+
+            <div>
+              <label class="field-label">Quick-Tap Evidence Tags Observed Across Lesson</label>
+              <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                ${GLOBAL_EVIDENCE_TAGS.map(tag => {
+                  const active = f.evidenceTags.includes(tag);
+                  return `
+                    <button type="button" class="tag-pill ${active ? 'active' : ''}" onclick="toggleEvidenceTag('${escapeHtml(tag)}')">
+                      ${active ? '✓ ' : '+ '}${escapeHtml(tag)}
+                    </button>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div>
+                <label class="field-label">26. During Observation Notes (Running Record)</label>
+                <textarea rows="3" class="textarea" placeholder="Overall lesson flow, transitions, and student engagement..." oninput="updateFormField('duringNotes', this.value)">${escapeHtml(f.duringNotes)}</textarea>
+              </div>
+              <div>
+                <label class="field-label" style="color:var(--emerald-800);">27. Glows (Instructional Strengths)</label>
+                <textarea rows="3" class="textarea" style="background:var(--emerald-50); border-color:var(--emerald-200);" placeholder="Specific high-leverage practices to reinforce..." oninput="updateFormField('glows', this.value)">${escapeHtml(f.glows)}</textarea>
+              </div>
+              <div>
+                <label class="field-label" style="color:var(--amber-800);">28. Grows (Targeted Area for Refinement)</label>
+                <textarea rows="3" class="textarea" style="background:var(--amber-50); border-color:var(--amber-200);" placeholder="Highest-leverage rubric refinement area..." oninput="updateFormField('grows', this.value)">${escapeHtml(f.grows)}</textarea>
+              </div>
+              <div>
+                <label class="field-label" style="color:var(--indigo-800);">29. Next Action Step (Concrete &amp; Observable)</label>
+                <textarea rows="3" class="textarea" style="background:var(--indigo-50); border-color:var(--indigo-200);" placeholder="Actionable next step before next classroom visit..." oninput="updateFormField('nextActionStep', this.value)">${escapeHtml(f.nextActionStep)}</textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Classroom Photo Uploader -->
+          <div class="card card-padded stack-md">
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; border-bottom:1px solid var(--border-light); padding-bottom:10px;">
+              <div>
+                <span style="font-size:11px; font-weight:800; text-transform:uppercase; color:var(--sky-800);">Visual Artifacts</span>
+                <h3 class="card-title">Classroom Whiteboard, Anchor Chart &amp; Student Work Photos</h3>
+              </div>
+              <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                <button type="button" class="btn btn-soft-sky btn-sm" onclick="addSampleArtifactPhoto(0)">+ Sample Anchor Chart</button>
+                <button type="button" class="btn btn-soft-sky btn-sm" onclick="addSampleArtifactPhoto(1)">+ Sample DOL Whiteboard</button>
+              </div>
+            </div>
+
+            <label style="display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px; border:2px dashed var(--border-med); border-radius:14px; background:#f8fafc; cursor:pointer; text-align:center;">
+              <strong style="font-size:13px; color:var(--text-primary);">Click to upload or capture classroom photo (JPG, PNG, WebP)</strong>
+              <span style="font-size:11px; color:var(--text-muted); margin-top:3px;">Stored offline with this observation and included in the printable feedback report</span>
+              <input type="file" accept="image/*" multiple style="display:none;" onchange="handlePhotoUpload(event)" />
+            </label>
+
+            ${f.photos.length > 0 ? `
+              <div class="grid-3">
+                ${f.photos.map((ph, idx) => `
+                  <div style="border:1px solid var(--border-light); border-radius:12px; overflow:hidden; background:#f8fafc;">
+                    <div style="position:relative; height:150px; background:#fff; border-bottom:1px solid var(--border-light); display:flex; align-items:center; justify-content:center;">
+                      <img src="${escapeHtml(ph.url || ph.dataUrl)}" alt="${escapeHtml(ph.caption)}" style="max-width:100%; max-height:100%; object-fit:contain;" />
+                      <button type="button" onclick="removeUploadedPhoto(${idx})" style="position:absolute; top:8px; right:8px; width:26px; height:26px; border-radius:50%; border:1px solid var(--border-med); background:#fff; color:var(--rose-600); font-weight:800; cursor:pointer;">✕</button>
+                    </div>
+                    <div style="padding:8px;">
+                      <input type="text" class="input" value="${escapeHtml(ph.caption)}" placeholder="Photo caption..." oninput="updatePhotoCaption(${idx}, this.value)" />
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            ` : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    // Form Event Handlers
+    function setFormLayoutMode(mode) {
+      state.form.layoutMode = mode;
+      persistActiveDraft();
+      renderApp();
+    }
+
+    function setActiveDomainTab(tabId) {
+      state.form.activeDomainTab = tabId;
+      renderApp();
+    }
+
+    function updateFormField(field, value) {
+      state.form[field] = value;
+      persistActiveDraft();
+    }
+
+    function setComponentScore(compId, val) {
+      if (state.form.scores[compId] === val) {
+        delete state.form.scores[compId];
+      } else {
+        state.form.scores[compId] = val;
+      }
+      persistActiveDraft();
+      renderApp();
+    }
+
+    function setComponentNote(compId, val) {
+      state.form.notes[compId] = val;
+      persistActiveDraft();
+    }
+
+    function toggleComponentTag(compId, tag) {
+      if (!state.form.componentTags[compId]) state.form.componentTags[compId] = [];
+      const list = state.form.componentTags[compId];
+      const idx = list.indexOf(tag);
+      if (idx >= 0) {
+        list.splice(idx, 1);
+      } else {
+        list.push(tag);
+        if (!state.form.evidenceTags.includes(tag)) {
+          state.form.evidenceTags.push(tag);
+        }
+      }
+      persistActiveDraft();
+      renderApp();
+    }
+
+    function toggleEvidenceTag(tag) {
+      const idx = state.form.evidenceTags.indexOf(tag);
+      if (idx >= 0) {
+        state.form.evidenceTags.splice(idx, 1);
+      } else {
+        state.form.evidenceTags.push(tag);
+      }
+      persistActiveDraft();
+      renderApp();
+    }
+
+    function toggleLookFors(compId) {
+      const current = state.form.layoutMode === 'tabs'
+        ? state.form.expandedLookFors[compId] !== false
+        : !!state.form.expandedLookFors[compId];
+      state.form.expandedLookFors[compId] = !current;
+      renderApp();
+    }
+
+    function toggleAllMatrixLookFors() {
+      const anyClosed = ALL_COMPONENTS.some(c => !state.form.expandedLookFors[c.id]);
+      ALL_COMPONENTS.forEach(c => {
+        state.form.expandedLookFors[c.id] = anyClosed;
+      });
+      renderApp();
+    }
+
+    function handlePhotoUpload(event) {
+      const files = Array.from(event.target.files || []);
+      files.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = async function (e) {
+          state.form.photos.push({
+            caption: file.name.replace(/\.[^/.]+$/, '') || 'Classroom Artifact',
+            dataUrl: await downscaleImageDataUrl(e.target.result)
+          });
+          persistActiveDraft();
+          renderApp();
+          showToast('Added classroom photo: ' + file.name, 'success');
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    // Shrinks large phone photos before they are stored, so saves stay fast.
+    function downscaleImageDataUrl(dataUrl, maxSize) {
+      const limit = maxSize || 1600;
+      return new Promise(resolve => {
+        if (!/^data:image\/(jpeg|png|webp)/.test(dataUrl)) return resolve(dataUrl);
+        const img = new Image();
+        img.onload = function () {
+          const scale = Math.min(1, limit / Math.max(img.width, img.height));
+          if (scale === 1 && dataUrl.length < 900000) return resolve(dataUrl);
+          const canvas = document.createElement('canvas');
+          canvas.width = Math.round(img.width * scale);
+          canvas.height = Math.round(img.height * scale);
+          const ctx = canvas.getContext('2d');
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          try {
+            resolve(canvas.toDataURL('image/jpeg', 0.82));
+          } catch (err) {
+            resolve(dataUrl);
+          }
+        };
+        img.onerror = function () { resolve(dataUrl); };
+        img.src = dataUrl;
+      });
+    }
+
+    function addSampleArtifactPhoto(idx) {
+      const sample = SAMPLE_PHOTOS[idx];
+      if (!sample) return;
+      state.form.photos.push({ ...sample });
+      persistActiveDraft();
+      renderApp();
+      showToast('Attached sample artifact: ' + sample.caption, 'info');
+    }
+
+    function updatePhotoCaption(idx, val) {
+      if (state.form.photos[idx]) {
+        state.form.photos[idx].caption = val;
+        persistActiveDraft();
+      }
+    }
+
+    function removeUploadedPhoto(idx) {
+      state.form.photos.splice(idx, 1);
+      persistActiveDraft();
+      renderApp();
+    }
+
+    function clearCurrentObservationForm() {
+      resetObservationFormState(true);
+      safeRemoveItem(STORAGE_KEYS.DRAFT);
+      state.savedDraft = null;
+      renderApp();
+      showToast('Form cleared for a fresh walkthrough.', 'info');
+    }
+
+    function submitObservation() {
+      const f = state.form;
+      if (!f.teacher || !f.observer || !f.date) {
+        showToast('Please select Teacher, Observer, and Date before submitting.', 'error');
+        return;
+      }
+
+      const endNow = new Date();
+      const endTimestamp = formatFullTimestamp(endNow);
+      const durationSeconds = f.startEpoch ? Math.max(1, Math.floor((endNow.getTime() - f.startEpoch) / 1000)) : 600;
+
+      const mergedTags = Array.from(new Set([
+        ...f.evidenceTags,
+        ...Object.values(f.componentTags || {}).flat()
+      ]));
+
+      const newObs = {
+        id: 'obs-' + Date.now(),
+        teacher: f.teacher,
+        observer: f.observer,
+        date: f.date,
+        scheduledTime: f.scheduledTime || getCurrentTimeFormatted(),
+        lessonCodes: f.lessonCodes.trim() || 'Unspecified',
+        startTimestamp: f.startTimestamp || endTimestamp,
+        endTimestamp,
+        durationSeconds,
+        scores: { ...f.scores },
+        notes: { ...f.notes },
+        componentTags: JSON.parse(JSON.stringify(f.componentTags || {})),
+        duringNotes: f.duringNotes.trim(),
+        glows: f.glows.trim(),
+        grows: f.grows.trim(),
+        nextActionStep: f.nextActionStep.trim(),
+        evidenceTags: mergedTags,
+        photos: [...f.photos]
+      };
+
+      state.observations.unshift(newObs);
+      queueObservationForSync(newObs);
+      safeRemoveItem(STORAGE_KEYS.DRAFT);
+      state.savedDraft = null;
+
+      if (timerInterval) clearInterval(timerInterval);
+      resetObservationFormState(false);
+
+      showToast('Observation saved! Ended at ' + endTimestamp.split(' ')[1], 'success');
+      state.currentView = 'history';
+      renderApp();
+      openReportModal(newObs.id);
+    }
+
+    // =========================================================================
+    // 9. VIEW 3: ANALYTICS & DATA TABLES
+    // =========================================================================
+    function getFilteredObservations() {
+      const af = state.analyticsFilter;
+      return state.observations.filter(obs => {
+        if (af.teacher !== 'ALL' && obs.teacher !== af.teacher) return false;
+        if (af.observer !== 'ALL' && obs.observer !== af.observer) return false;
+        if (af.tag !== 'ALL' && !(obs.evidenceTags || []).includes(af.tag)) return false;
+        if (af.startDate && obs.date < af.startDate) return false;
+        if (af.endDate && obs.date > af.endDate) return false;
+        return true;
+      });
+    }
+
+    function applyAnalyticsPreset(preset) {
+      state.analyticsFilter.preset = preset;
+      const refToday = getReferenceTodayISO();
+      const base = new Date(refToday + 'T00:00:00');
+      if (preset === 'ALL') {
+        state.analyticsFilter.startDate = '';
+        state.analyticsFilter.endDate = '';
+      } else if (preset === '7D') {
+        const d = new Date(base);
+        d.setDate(d.getDate() - 7);
+        state.analyticsFilter.startDate = d.toISOString().slice(0, 10);
+        state.analyticsFilter.endDate = refToday;
+      } else if (preset === '30D') {
+        const d = new Date(base);
+        d.setDate(d.getDate() - 30);
+        state.analyticsFilter.startDate = d.toISOString().slice(0, 10);
+        state.analyticsFilter.endDate = refToday;
+      } else if (preset === '90D') {
+        const d = new Date(base);
+        d.setDate(d.getDate() - 90);
+        state.analyticsFilter.startDate = d.toISOString().slice(0, 10);
+        state.analyticsFilter.endDate = refToday;
+      }
+      renderApp();
+    }
+
+    function setAnalyticsSort(col) {
+      if (state.analyticsFilter.sortCol === col) {
+        state.analyticsFilter.sortDir = state.analyticsFilter.sortDir === 'asc' ? 'desc' : 'asc';
+      } else {
+        state.analyticsFilter.sortCol = col;
+        state.analyticsFilter.sortDir = col === 'avgScore' ? 'asc' : 'desc';
+      }
+      renderApp();
+    }
+
+    function resetAnalyticsFilters() {
+      state.analyticsFilter = {
+        teacher: 'ALL',
+        domain: 'ALL',
+        component: 'ALL',
+        observer: 'ALL',
+        tag: 'ALL',
+        preset: 'ALL',
+        startDate: '',
+        endDate: '',
+        sortCol: 'avgScore',
+        sortDir: 'asc'
+      };
+      renderApp();
+    }
+
+    function renderAnalytics() {
+      const af = state.analyticsFilter;
+      const filteredObs = getFilteredObservations();
+
+      let targetComponents = ALL_COMPONENTS;
+      if (af.domain !== 'ALL') targetComponents = targetComponents.filter(c => c.domainId === af.domain);
+      if (af.component !== 'ALL') targetComponents = targetComponents.filter(c => c.id === af.component);
+
+      const compRows = targetComponents.map(comp => {
+        let sum = 0, ratedCount = 0, naCount = 0;
+        const dist = { 1: 0, 2: 0, 3: 0, 4: 0 };
+
+        filteredObs.forEach(obs => {
+          const val = obs.scores && obs.scores[comp.id];
+          if (val === 0) {
+            naCount++;
+          } else if (typeof val === 'number' && val >= 1 && val <= 4) {
+            sum += val;
+            ratedCount++;
+            dist[val]++;
+          }
+        });
+
+        const avgScore = ratedCount > 0 ? sum / ratedCount : null;
+        const lowPct = ratedCount > 0 ? Math.round(((dist[1] + dist[2]) / ratedCount) * 100) : 0;
+        return { ...comp, ratedCount, naCount, avgScore, dist, lowPct };
+      });
+
+      const sortedCompRows = [...compRows].sort((a, b) => {
+        const dir = af.sortDir === 'asc' ? 1 : -1;
+        if (af.sortCol === 'number') return (a.number - b.number) * dir;
+        if (af.sortCol === 'name') return a.name.localeCompare(b.name) * dir;
+        if (af.sortCol === 'ratedCount') return (a.ratedCount - b.ratedCount) * dir;
+        if (af.sortCol === 'lowPct') return (a.lowPct - b.lowPct) * dir;
+        if (a.avgScore === null && b.avgScore === null) return 0;
+        if (a.avgScore === null) return 1;
+        if (b.avgScore === null) return -1;
+        return (a.avgScore - b.avgScore) * dir;
+      });
+
+      const ratedOnly = compRows.filter(c => c.avgScore !== null).sort((a, b) => a.avgScore - b.avgScore);
+      const topStruggle = ratedOnly[0] || null;
+      const topStrength = ratedOnly[ratedOnly.length - 1] || null;
+
+      // Teacher Performance Summary Table
+      const teacherList = Array.from(new Set([...state.teachers, ...filteredObs.map(o => o.teacher)]));
+      const teacherRows = teacherList.map(tName => {
+        const tObs = filteredObs.filter(o => o.teacher === tName);
+        const avgs = tObs.map(calcObservationAverage).filter(v => v !== null);
+        const overallAvg = avgs.length ? avgs.reduce((a, b) => a + b, 0) / avgs.length : null;
+        const dEnv = tObs.map(o => calcDomainAverageForObs(o, 'domain_env')).filter(v => v !== null);
+        const dInst = tObs.map(o => calcDomainAverageForObs(o, 'domain_inst')).filter(v => v !== null);
+        const dMon = tObs.map(o => calcDomainAverageForObs(o, 'domain_mon')).filter(v => v !== null);
+
+        let lowestForTeacher = null;
+        ALL_COMPONENTS.forEach(c => {
+          const vals = tObs.map(o => o.scores && o.scores[c.id]).filter(v => typeof v === 'number' && v >= 1 && v <= 4);
+          if (vals.length > 0) {
+            const cAvg = vals.reduce((a, b) => a + b, 0) / vals.length;
+            if (!lowestForTeacher || cAvg < lowestForTeacher.avg) {
+              lowestForTeacher = { name: c.name, avg: cAvg };
+            }
+          }
+        });
+
+        return {
+          name: tName,
+          obsCount: tObs.length,
+          overallAvg,
+          envAvg: dEnv.length ? dEnv.reduce((a, b) => a + b, 0) / dEnv.length : null,
+          instAvg: dInst.length ? dInst.reduce((a, b) => a + b, 0) / dInst.length : null,
+          monAvg: dMon.length ? dMon.reduce((a, b) => a + b, 0) / dMon.length : null,
+          lowestForTeacher
+        };
+      });
+
+      return `
+        <div class="stack-lg">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+            <div>
+              <h1 style="margin:0; font-size:22px; font-weight:800;">Analytics &amp; Rubric Data Tables</h1>
+              <p style="margin:3px 0 0; font-size:13px; color:var(--text-muted);">Filter by teacher, domain, component, observer, or timeframe to pinpoint instructional needs.</p>
+            </div>
+            <button class="btn btn-primary" onclick="exportAnalyticsCSV()">↓ Export CSV Report</button>
+          </div>
+
+          <!-- Multi-Filter Bar -->
+          <div class="card card-padded stack-md">
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; border-bottom:1px solid var(--border-light); padding-bottom:12px;">
+              <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                <span class="field-label" style="margin:0;">Timeframe:</span>
+                ${[
+                  { id: 'ALL', label: 'All Time' },
+                  { id: '7D', label: 'Last 7 Days' },
+                  { id: '30D', label: 'Last 30 Days' },
+                  { id: '90D', label: 'Last 90 Days' }
+                ].map(p => `
+                  <button class="btn btn-sm ${af.preset === p.id ? 'btn-primary' : 'btn-outline'}" onclick="applyAnalyticsPreset('${p.id}')">${p.label}</button>
+                `).join('')}
+              </div>
+
+              <div style="display:flex; align-items:center; gap:12px; font-size:12px;">
+                <span>Matching Visits: <strong style="color:var(--indigo-700);" class="tabular-nums">${filteredObs.length}</strong></span>
+                <button style="background:none; border:none; color:var(--text-secondary); text-decoration:underline; cursor:pointer; font-size:12px; font-weight:700;" onclick="resetAnalyticsFilters()">Reset Filters</button>
+              </div>
+            </div>
+
+            <div class="grid-5">
+              <div>
+                <label class="field-label">Teacher</label>
+                <select class="select" onchange="state.analyticsFilter.teacher = this.value; renderApp();">
+                  <option value="ALL">All Teachers (${state.teachers.length})</option>
+                  ${state.teachers.map(t => `<option value="${escapeHtml(t)}" ${af.teacher === t ? 'selected' : ''}>${escapeHtml(t)}</option>`).join('')}
+                </select>
+              </div>
+
+              <div>
+                <label class="field-label">T-TESS Domain</label>
+                <select class="select" onchange="state.analyticsFilter.domain = this.value; state.analyticsFilter.component = 'ALL'; renderApp();">
+                  <option value="ALL">All Domains</option>
+                  ${RUBRIC_DOMAINS.map(d => `<option value="${d.id}" ${af.domain === d.id ? 'selected' : ''}>${escapeHtml(d.title)}</option>`).join('')}
+                </select>
+              </div>
+
+              <div>
+                <label class="field-label">Specific Component</label>
+                <select class="select" onchange="state.analyticsFilter.component = this.value; renderApp();">
+                  <option value="ALL">All Components (10)</option>
+                  ${ALL_COMPONENTS.map(c => `<option value="${c.id}" ${af.component === c.id ? 'selected' : ''}>${c.number}. ${escapeHtml(c.name)}</option>`).join('')}
+                </select>
+              </div>
+
+              <div>
+                <label class="field-label">Observer</label>
+                <select class="select" onchange="state.analyticsFilter.observer = this.value; renderApp();">
+                  <option value="ALL">All Observers</option>
+                  ${state.observers.map(o => `<option value="${escapeHtml(o)}" ${af.observer === o ? 'selected' : ''}>${escapeHtml(o)}</option>`).join('')}
+                </select>
+              </div>
+
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+                <div>
+                  <label class="field-label">From</label>
+                  <input type="date" class="input tabular-nums" value="${escapeHtml(af.startDate)}" onchange="state.analyticsFilter.startDate = this.value; state.analyticsFilter.preset = 'CUSTOM'; renderApp();" />
+                </div>
+                <div>
+                  <label class="field-label">To</label>
+                  <input type="date" class="input tabular-nums" value="${escapeHtml(af.endDate)}" onchange="state.analyticsFilter.endDate = this.value; state.analyticsFilter.preset = 'CUSTOM'; renderApp();" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dynamic Struggle & Strength Callouts -->
+          <div class="grid-2">
+            <div class="card card-padded" style="background:var(--rose-50); border-color:var(--rose-200);">
+              <span class="badge badge-rose">Primary Struggle / Coaching Priority</span>
+              ${topStruggle ? `
+                <h3 style="margin:10px 0 4px; font-size:18px; font-weight:800; color:var(--text-primary);">
+                  ${topStruggle.number}. ${escapeHtml(topStruggle.name)}
+                </h3>
+                <p style="margin:0; font-size:13px; color:var(--text-secondary);">
+                  Average score of <strong style="color:var(--rose-700);" class="tabular-nums">${topStruggle.avgScore.toFixed(2)} / 4.00</strong> across ${topStruggle.ratedCount} scored observations (<strong class="tabular-nums">${topStruggle.lowPct}%</strong> scored 1 or 2).
+                </p>
+              ` : `<p style="margin:10px 0 0; font-size:13px; color:var(--text-muted);">No scored observations in current filter.</p>`}
+            </div>
+
+            <div class="card card-padded" style="background:var(--emerald-50); border-color:var(--emerald-200);">
+              <span class="badge badge-emerald">Top Instructional Strength</span>
+              ${topStrength ? `
+                <h3 style="margin:10px 0 4px; font-size:18px; font-weight:800; color:var(--text-primary);">
+                  ${topStrength.number}. ${escapeHtml(topStrength.name)}
+                </h3>
+                <p style="margin:0; font-size:13px; color:var(--text-secondary);">
+                  Average score of <strong style="color:var(--emerald-700);" class="tabular-nums">${topStrength.avgScore.toFixed(2)} / 4.00</strong> across ${topStrength.ratedCount} scored observations in <strong>${escapeHtml(topStrength.domainName)}</strong>.
+                </p>
+              ` : `<p style="margin:10px 0 0; font-size:13px; color:var(--text-muted);">No scored observations in current filter.</p>`}
+            </div>
+          </div>
+
+          <!-- Pure HTML/CSS Component Performance Bar Chart -->
+          <div class="card card-padded">
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-bottom:16px;">
+              <div>
+                <h2 class="card-title">Component Performance Profile (0–4 Scale)</h2>
+                <p class="card-subtitle">Sorted lowest-to-highest to spotlight areas needing instructional coaching</p>
+              </div>
+              <div style="display:flex; gap:10px; flex-wrap:wrap; font-size:11px; font-weight:700; color:var(--text-secondary);">
+                <span>● <span style="color:#e11d48;">&lt;2.30 Priority</span></span>
+                <span>● <span style="color:#d97706;">2.30–2.84 Developing</span></span>
+                <span>● <span style="color:#2563eb;">2.85–3.44 Proficient</span></span>
+                <span>● <span style="color:#059669;">≥3.45 Exemplary</span></span>
+              </div>
+            </div>
+
+            <div class="stack-md">
+              ${[...compRows].sort((a, b) => (a.avgScore ?? 99) - (b.avgScore ?? 99)).map(c => {
+                const pct = c.avgScore !== null ? Math.min(100, Math.round((c.avgScore / 4) * 100)) : 0;
+                const info = getScoreBadgeInfo(c.avgScore);
+                return `
+                  <div style="display:grid; grid-template-columns: 240px 1fr 85px; gap:12px; align-items:center;">
+                    <div style="font-size:12px; font-weight:700; color:var(--text-primary); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                      ${c.number}. ${escapeHtml(c.name)}
+                    </div>
+                    <div class="progress-track">
+                      <div class="progress-fill tabular-nums" style="width:${pct}%; background:${info.barColor};">
+                        ${pct > 20 ? c.avgScore.toFixed(2) : ''}
+                      </div>
+                    </div>
+                    <div style="text-align:right; font-size:12px;" class="tabular-nums">
+                      <strong>${c.avgScore !== null ? c.avgScore.toFixed(2) : 'N/A'}</strong> <span style="color:var(--text-muted);">(n=${c.ratedCount})</span>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+
+          <!-- Data Table 1: Sortable Component Breakdown -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h2 class="card-title">Data Table 1: Rubric Component Breakdown</h2>
+                <p class="card-subtitle">Click column headers to sort by Average Score or % Scoring 1–2</p>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="cursor:pointer;" onclick="setAnalyticsSort('number')">#</th>
+                    <th style="cursor:pointer;" onclick="setAnalyticsSort('name')">Component</th>
+                    <th>Domain</th>
+                    <th style="text-align:center; cursor:pointer;" onclick="setAnalyticsSort('ratedCount')">Scored</th>
+                    <th style="text-align:center;">N/A (0)</th>
+                    <th style="text-align:center;">1s</th>
+                    <th style="text-align:center;">2s</th>
+                    <th style="text-align:center;">3s</th>
+                    <th style="text-align:center;">4s</th>
+                    <th style="text-align:center; cursor:pointer;" onclick="setAnalyticsSort('lowPct')">% Need Help (1–2)</th>
+                    <th style="text-align:right; cursor:pointer;" onclick="setAnalyticsSort('avgScore')">Avg Score ↕</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${sortedCompRows.map(r => {
+                    const info = getScoreBadgeInfo(r.avgScore);
+                    return `
+                      <tr>
+                        <td class="tabular-nums" style="font-weight:700; color:var(--text-muted);">${r.number}</td>
+                        <td style="font-weight:800; color:var(--text-primary);">${escapeHtml(r.name)}</td>
+                        <td style="font-size:12px; color:var(--text-muted);">${escapeHtml(r.domainName)}</td>
+                        <td style="text-align:center; font-weight:700;" class="tabular-nums">${r.ratedCount}</td>
+                        <td style="text-align:center; color:var(--text-muted);" class="tabular-nums">${r.naCount}</td>
+                        <td style="text-align:center; font-weight:700; color:${r.dist[1] > 0 ? 'var(--rose-600)' : 'var(--border-med)'};" class="tabular-nums">${r.dist[1]}</td>
+                        <td style="text-align:center; font-weight:700; color:${r.dist[2] > 0 ? 'var(--amber-700)' : 'var(--border-med)'};" class="tabular-nums">${r.dist[2]}</td>
+                        <td style="text-align:center; font-weight:700; color:${r.dist[3] > 0 ? 'var(--blue-600)' : 'var(--border-med)'};" class="tabular-nums">${r.dist[3]}</td>
+                        <td style="text-align:center; font-weight:700; color:${r.dist[4] > 0 ? 'var(--emerald-600)' : 'var(--border-med)'};" class="tabular-nums">${r.dist[4]}</td>
+                        <td style="text-align:center;" class="tabular-nums">
+                          <span class="badge ${r.lowPct >= 50 ? 'badge-rose' : r.lowPct > 0 ? 'badge-amber' : 'badge-slate'}">${r.lowPct}%</span>
+                        </td>
+                        <td style="text-align:right;">
+                          <span class="badge ${info.badgeClass} tabular-nums">${r.avgScore !== null ? r.avgScore.toFixed(2) : '—'}</span>
+                        </td>
+                      </tr>
+                    `;
+                  }).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Data Table 2: Teacher Performance Summary -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h2 class="card-title">Data Table 2: Teacher Domain &amp; Focus Area Summary</h2>
+                <p class="card-subtitle">Compares domain averages and highlights each teacher's lowest-scoring component</p>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Teacher</th>
+                    <th style="text-align:center;">Visits</th>
+                    <th style="text-align:center;">Environment (D3)</th>
+                    <th style="text-align:center;">Instructional (D2)</th>
+                    <th style="text-align:center;">Monitoring (D2)</th>
+                    <th>Primary Growth Area</th>
+                    <th style="text-align:right;">Overall Avg</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${teacherRows.map(tr => {
+                    const info = getScoreBadgeInfo(tr.overallAvg);
+                    return `
+                      <tr>
+                        <td style="font-weight:800; color:var(--text-primary);">${escapeHtml(tr.name)}</td>
+                        <td style="text-align:center; font-weight:700;" class="tabular-nums">${tr.obsCount}</td>
+                        <td style="text-align:center;" class="tabular-nums">${tr.envAvg !== null ? tr.envAvg.toFixed(2) : '—'}</td>
+                        <td style="text-align:center;" class="tabular-nums">${tr.instAvg !== null ? tr.instAvg.toFixed(2) : '—'}</td>
+                        <td style="text-align:center;" class="tabular-nums">${tr.monAvg !== null ? tr.monAvg.toFixed(2) : '—'}</td>
+                        <td>
+                          ${tr.lowestForTeacher
+                            ? `<span class="badge badge-amber">${escapeHtml(tr.lowestForTeacher.name)} (${tr.lowestForTeacher.avg.toFixed(1)})</span>`
+                            : '—'}
+                        </td>
+                        <td style="text-align:right;">
+                          <span class="badge ${info.badgeClass} tabular-nums">${tr.overallAvg !== null ? tr.overallAvg.toFixed(2) : '—'}</span>
+                        </td>
+                      </tr>
+                    `;
+                  }).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function exportAnalyticsCSV() {
+      const filteredObs = getFilteredObservations();
+      const headers = [
+        'Observation ID', 'Date', 'Scheduled Time', 'Start Timestamp', 'End Timestamp', 'Duration (Mins)',
+        'Teacher', 'Observer', 'Lesson Codes', 'Overall Avg', 'Evidence Tags', 'Photo Count',
+        ...ALL_COMPONENTS.map(c => c.number + '. ' + c.name),
+        'Glows', 'Grows', 'Next Action Step'
+      ];
+
+      const rows = filteredObs.map(obs => {
+        const avg = calcObservationAverage(obs);
+        return [
+          obs.id,
+          obs.date,
+          obs.scheduledTime,
+          obs.startTimestamp || '',
+          obs.endTimestamp || '',
+          Math.round((obs.durationSeconds || 0) / 60),
+          obs.teacher,
+          obs.observer,
+          obs.lessonCodes,
+          avg !== null ? avg.toFixed(2) : '',
+          (obs.evidenceTags || []).join('; '),
+          (obs.photos || []).length,
+          ...ALL_COMPONENTS.map(c => (obs.scores && typeof obs.scores[c.id] === 'number') ? obs.scores[c.id] : ''),
+          obs.glows || '',
+          obs.grows || '',
+          obs.nextActionStep || ''
+        ].map(val => '"' + String(val).replace(/"/g, '""') + '"').join(',');
+      });
+
+      const csvContent = [headers.join(','), ...rows].join('\n');
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'WalkthroughIQ_G8_SS_Analytics_' + getTodayISO() + '.csv';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('Exported WalkthroughIQ CSV report!', 'success');
+    }
+
+    // =========================================================================
+    // 10. VIEW 4: OBSERVATION ARCHIVE
+    // =========================================================================
+    function renderHistory() {
+      const q = state.historySearch.trim().toLowerCase();
+      const tFilter = state.historyTeacherFilter;
+
+      const list = state.observations.filter(obs => {
+        if (tFilter !== 'ALL' && obs.teacher !== tFilter) return false;
+        if (!q) return true;
+        const hay = [
+          obs.teacher, obs.observer, obs.date, obs.lessonCodes,
+          obs.glows, obs.grows, obs.nextActionStep, (obs.evidenceTags || []).join(' ')
+        ].join(' ').toLowerCase();
+        return hay.includes(q);
+      }).sort((a, b) => b.date.localeCompare(a.date));
+
+      return `
+        <div class="stack-lg">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+            <div>
+              <h1 style="margin:0; font-size:22px; font-weight:800;">Observation Archive &amp; Feedback Reports</h1>
+              <p style="margin:3px 0 0; font-size:13px; color:var(--text-muted);">Search completed walkthroughs and open printable teacher coaching summaries.</p>
+            </div>
+            <button class="btn btn-primary" onclick="launchNewObservationTab()">+ New Observation ↗</button>
+          </div>
+
+          <div class="card card-padded" style="display:grid; grid-template-columns: 2fr 1fr; gap:12px;">
+            <div>
+              <label class="field-label">Search Notes, Lesson Codes, Glows, Grows, or Tags</label>
+              <input type="text" class="input" placeholder="e.g., AR1, CON4, Think-Pair-Share, Bucketing..." value="${escapeHtml(state.historySearch)}" oninput="state.historySearch = this.value; renderApp();" />
+            </div>
+            <div>
+              <label class="field-label">Filter by Teacher</label>
+              <select class="select" onchange="state.historyTeacherFilter = this.value; renderApp();">
+                <option value="ALL">All Teachers</option>
+                ${state.teachers.map(t => `<option value="${escapeHtml(t)}" ${tFilter === t ? 'selected' : ''}>${escapeHtml(t)}</option>`).join('')}
+              </select>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Date &amp; Timestamps</th>
+                    <th>Teacher</th>
+                    <th>Observer</th>
+                    <th>Lesson(s) &amp; Tags</th>
+                    <th>Next Action Step</th>
+                    <th style="text-align:center;">Avg Score</th>
+                    <th style="text-align:right;">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${list.length === 0 ? `
+                    <tr>
+                      <td colspan="7" style="text-align:center; padding:32px; color:var(--text-muted);">No matching observations found.</td>
+                    </tr>
+                  ` : list.map(obs => {
+                    const avg = calcObservationAverage(obs);
+                    const info = getScoreBadgeInfo(avg);
+                    return `
+                      <tr class="clickable-row" onclick="openReportModal('${obs.id}')">
+                        <td class="tabular-nums">
+                          <div style="font-weight:800; color:var(--text-primary);">${escapeHtml(obs.date)}</div>
+                          <div style="font-size:11px; color:var(--text-muted);">${escapeHtml(obs.scheduledTime)} • ${formatDuration(obs.durationSeconds)}</div>
+                        </td>
+                        <td style="font-weight:800; color:var(--text-primary);">${escapeHtml(obs.teacher)}</td>
+                        <td>${escapeHtml(obs.observer)}</td>
+                        <td>
+                          <span class="badge badge-slate" style="font-family:monospace;">${escapeHtml(obs.lessonCodes)}</span>
+                          ${(obs.photos || []).length > 0 ? `<span class="badge badge-emerald">${obs.photos.length} photo</span>` : ''}
+                        </td>
+                        <td style="max-width:260px; font-size:12px;">${escapeHtml(obs.nextActionStep || '—')}</td>
+                        <td style="text-align:center;">
+                          <span class="badge ${info.badgeClass} tabular-nums">${avg !== null ? avg.toFixed(2) : 'N/A'}</span>
+                        </td>
+                        <td style="text-align:right; white-space:nowrap;">
+                          <button type="button" class="btn btn-soft-indigo btn-sm" onclick="event.stopPropagation(); openReportModal('${obs.id}')">View Report</button>
+                        </td>
+                      </tr>
+                    `;
+                  }).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // =========================================================================
+    // 11. MODALS: POST-OBSERVATION FEEDBACK REPORT & ROSTER MANAGEMENT
+    // =========================================================================
+    function openReportModal(obsId) {
+      const obs = state.observations.find(o => o.id === obsId);
+      if (!obs) return;
+
+      const avg = calcObservationAverage(obs);
+      const info = getScoreBadgeInfo(avg);
+      const photos = obs.photos || [];
+
+      const modal = document.getElementById('modal-content');
+      modal.innerHTML = `
+        <div id="printable-report" class="card-padded stack-md" style="background:#ffffff;">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap; border-bottom:1px solid var(--border-light); padding-bottom:16px;">
+            <div>
+              <span class="badge badge-indigo">WalkthroughIQ — Instructional Quality • SY26-27 G8 Social Studies (T-TESS)</span>
+              <h2 style="margin:8px 0 4px; font-size:22px; font-weight:800;">Post-Observation Teacher Feedback Report</h2>
+              <div style="display:flex; gap:18px; flex-wrap:wrap; font-size:12px; color:var(--text-secondary); margin-top:8px;" class="tabular-nums">
+                <span><strong>Teacher:</strong> ${escapeHtml(obs.teacher)}</span>
+                <span><strong>Observer:</strong> ${escapeHtml(obs.observer)}</span>
+                <span><strong>Date &amp; Time:</strong> ${escapeHtml(obs.date)} (${escapeHtml(obs.scheduledTime)})</span>
+                <span><strong>Lesson(s):</strong> ${escapeHtml(obs.lessonCodes)}</span>
+              </div>
+              <div style="font-size:11px; color:var(--text-muted); margin-top:6px;" class="tabular-nums">
+                <strong>Start Timestamp:</strong> ${escapeHtml(obs.startTimestamp || '—')} &nbsp;|&nbsp;
+                <strong>End Timestamp:</strong> ${escapeHtml(obs.endTimestamp || '—')} &nbsp;|&nbsp;
+                <strong>Duration:</strong> ${formatDuration(obs.durationSeconds)}
+              </div>
+            </div>
+
+            <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
+              <div class="badge ${info.badgeClass} tabular-nums" style="padding:8px 14px; font-size:15px;">
+                Overall Avg: ${avg !== null ? avg.toFixed(2) : 'N/A'} / 4.0
+              </div>
+              <div class="no-print" style="display:flex; gap:6px;">
+                <button type="button" class="btn btn-outline btn-sm" onclick="copyReportToClipboard('${obs.id}')">Copy Summary</button>
+                <button type="button" class="btn btn-primary btn-sm" onclick="window.print()">Print / Save PDF</button>
+                <button type="button" class="btn btn-outline btn-sm" onclick="closeModal()">✕</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Glows, Grows, Next Action Step -->
+          <div class="grid-3">
+            <div style="padding:14px; border-radius:12px; background:var(--emerald-50); border:1px solid var(--emerald-200);">
+              <div style="font-size:11px; font-weight:800; text-transform:uppercase; color:var(--emerald-800); margin-bottom:4px;">Glows (Strengths)</div>
+              <div style="font-size:13px; color:var(--text-primary);">${escapeHtml(obs.glows || 'No glows recorded.')}</div>
+            </div>
+            <div style="padding:14px; border-radius:12px; background:var(--amber-50); border:1px solid var(--amber-200);">
+              <div style="font-size:11px; font-weight:800; text-transform:uppercase; color:var(--amber-800); margin-bottom:4px;">Grows (Refinement Area)</div>
+              <div style="font-size:13px; color:var(--text-primary);">${escapeHtml(obs.grows || 'No grows recorded.')}</div>
+            </div>
+            <div style="padding:14px; border-radius:12px; background:var(--indigo-50); border:1px solid var(--indigo-200);">
+              <div style="font-size:11px; font-weight:800; text-transform:uppercase; color:var(--indigo-800); margin-bottom:4px;">Next Action Step</div>
+              <div style="font-size:13px; font-weight:700; color:var(--text-primary);">${escapeHtml(obs.nextActionStep || 'No action step recorded.')}</div>
+            </div>
+          </div>
+
+          ${obs.duringNotes ? `
+            <div style="padding:12px 14px; border-radius:12px; background:#f8fafc; border:1px solid var(--border-light);">
+              <div class="field-label">During Observation Notes</div>
+              <div style="font-size:13px; color:var(--text-secondary);">${escapeHtml(obs.duringNotes)}</div>
+            </div>
+          ` : ''}
+
+          ${obs.evidenceTags && obs.evidenceTags.length > 0 ? `
+            <div style="display:flex; flex-wrap:wrap; align-items:center; gap:6px;">
+              <strong style="font-size:12px; color:var(--text-muted);">Evidence Tags:</strong>
+              ${obs.evidenceTags.map(t => `<span class="badge badge-indigo">✓ ${escapeHtml(t)}</span>`).join('')}
+            </div>
+          ` : ''}
+
+          ${photos.length > 0 ? `
+            <div class="stack-md">
+              <div class="field-label">Attached Classroom Artifacts &amp; Board Photos</div>
+              <div class="grid-2">
+                ${photos.map(ph => `
+                  <div style="border:1px solid var(--border-light); border-radius:12px; overflow:hidden; background:#f8fafc;">
+                    <img src="${escapeHtml(ph.url || ph.dataUrl)}" alt="${escapeHtml(ph.caption)}" style="width:100%; height:170px; object-fit:contain; background:#fff; border-bottom:1px solid var(--border-light);" />
+                    <div style="padding:8px 12px; font-size:12px; font-weight:700; color:var(--text-secondary);">${escapeHtml(ph.caption)}</div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          ` : ''}
+
+          <!-- Component Score Table -->
+          <div class="card">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Rubric Component</th>
+                    <th style="text-align:center; width:90px;">Score</th>
+                    <th>Observer Notes &amp; Component Evidence</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${ALL_COMPONENTS.map(c => {
+                    const sc = obs.scores && obs.scores[c.id];
+                    const note = (obs.notes && obs.notes[c.id]) || '';
+                    const cTags = (obs.componentTags && obs.componentTags[c.id]) || [];
+                    return `
+                      <tr>
+                        <td>
+                          <strong style="color:var(--text-primary);">${c.number}. ${escapeHtml(c.name)}</strong>
+                          <div style="font-size:11px; color:var(--text-muted);">${escapeHtml(c.domainName)}</div>
+                        </td>
+                        <td style="text-align:center;" class="tabular-nums">
+                          ${typeof sc === 'number'
+                            ? `<span class="badge ${sc === 0 ? 'badge-slate' : sc === 1 ? 'badge-rose' : sc === 2 ? 'badge-amber' : sc === 3 ? 'badge-blue' : 'badge-emerald'}">${sc === 0 ? '0 N/A' : sc + ' / 4'}</span>`
+                            : '—'}
+                        </td>
+                        <td style="font-size:12px;">
+                          ${cTags.length > 0 ? `<div style="margin-bottom:4px;">${cTags.map(t => `<span class="badge badge-indigo" style="font-size:10px;">${escapeHtml(t)}</span>`).join(' ')}</div>` : ''}
+                          ${note ? escapeHtml(note) : '<span style="color:var(--text-muted); font-style:italic;">No component note</span>'}
+                        </td>
+                      </tr>
+                    `;
+                  }).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('modal-backdrop').classList.remove('hidden');
+    }
+
+    function copyReportToClipboard(obsId) {
+      const obs = state.observations.find(o => o.id === obsId);
+      if (!obs) return;
+      const avg = calcObservationAverage(obs);
+      const text = [
+        'WALKTHROUGHIQ — INSTRUCTIONAL QUALITY (G8 SOCIAL STUDIES SY26-27)',
+        'Teacher: ' + obs.teacher + ' | Observer: ' + obs.observer,
+        'Date: ' + obs.date + ' (' + obs.scheduledTime + ') | Lesson(s): ' + obs.lessonCodes,
+        'Start: ' + (obs.startTimestamp || '') + ' | End: ' + (obs.endTimestamp || '') + ' | Overall Avg: ' + (avg !== null ? avg.toFixed(2) : 'N/A') + '/4.0',
+        '',
+        'GLOWS: ' + (obs.glows || 'N/A'),
+        'GROWS: ' + (obs.grows || 'N/A'),
+        'NEXT ACTION STEP: ' + (obs.nextActionStep || 'N/A')
+      ].join('\n');
+
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+        showToast('Copied feedback summary to clipboard!', 'success');
+      } catch (e) {
+        showToast('Unable to copy automatically.', 'error');
+      }
+      document.body.removeChild(ta);
+    }
+
+    function openRosterModal() {
+      const modal = document.getElementById('modal-content');
+      modal.innerHTML = `
+        <div class="card-padded stack-md" style="background:#ffffff;">
+          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-light); padding-bottom:12px;">
+            <div>
+              <h2 class="card-title" style="font-size:18px;">Manage Teachers &amp; Observers</h2>
+              <p class="card-subtitle">Add additional teachers or administrators to the WalkthroughIQ dropdowns</p>
+            </div>
+            <button type="button" class="btn btn-outline btn-sm" onclick="closeModal()">✕ Close</button>
+          </div>
+
+          <div class="grid-2">
+            <div class="stack-md">
+              <strong style="font-size:13px;">Teachers (${state.teachers.length})</strong>
+              <div style="display:flex; gap:6px;">
+                <input id="new-teacher-input" type="text" class="input" placeholder="e.g., R. Morales" />
+                <button type="button" class="btn btn-primary btn-sm" onclick="addRosterTeacher()">Add</button>
+              </div>
+              <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                ${state.teachers.map(t => `<span class="badge badge-slate">${escapeHtml(t)}</span>`).join('')}
+              </div>
+            </div>
+
+            <div class="stack-md">
+              <strong style="font-size:13px;">Observers (${state.observers.length})</strong>
+              <div style="display:flex; gap:6px;">
+                <input id="new-observer-input" type="text" class="input" placeholder="e.g., D. Carter" />
+                <button type="button" class="btn btn-primary btn-sm" onclick="addRosterObserver()">Add</button>
+              </div>
+              <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                ${state.observers.map(o => `<span class="badge badge-indigo">${escapeHtml(o)}</span>`).join('')}
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      document.getElementById('modal-backdrop').classList.remove('hidden');
+    }
+
+    function addRosterTeacher() {
+      const inp = document.getElementById('new-teacher-input');
+      const val = inp ? inp.value.trim() : '';
+      if (!val) return;
+      if (!state.teachers.includes(val)) {
+        state.teachers.push(val);
+        if (state.form) state.form.teacher = val;
+        saveRosterEntry('teacher', val);
+      }
+      openRosterModal();
+      renderApp();
+    }
+
+    function addRosterObserver() {
+      const inp = document.getElementById('new-observer-input');
+      const val = inp ? inp.value.trim() : '';
+      if (!val) return;
+      if (!state.observers.includes(val)) {
+        state.observers.push(val);
+        if (state.form) state.form.observer = val;
+        saveRosterEntry('observer', val);
+      }
+      openRosterModal();
+      renderApp();
+    }
+
+    function closeModal() {
+      document.getElementById('modal-backdrop').classList.add('hidden');
+    }
+
+    async function resetDemoData() {
+      const ok = window.confirm('This replaces ALL shared observations and the roster for every participant with the sample dataset. Continue?');
+      if (!ok) return;
+      try {
+        const data = await apiFetch('/api/reset', {
+          method: 'POST',
+          body: JSON.stringify({
+            observations: SAMPLE_OBSERVATIONS,
+            teachers: DEFAULT_TEACHERS,
+            observers: DEFAULT_OBSERVERS
+          })
+        });
+        applySharedData(data);
+        safeRemoveItem(STORAGE_KEYS.DRAFT);
+        safeRemoveItem(STORAGE_KEYS.OUTBOX);
+        state.savedDraft = null;
+        renderApp();
+        notifyOtherTabs();
+        showToast('Restored default SY26-27 G8 Social Studies sample dataset.', 'info');
+      } catch (err) {
+        showToast('Could not reset data: ' + err.message, 'error');
+      }
+    }
+
+    // =========================================================================
+    // 12. MAIN RENDER CONTROLLER & WINDOW ONLOAD BOOTSTRAP
+    // =========================================================================
+    function renderApp() {
+      const badge = document.getElementById('nav-count-badge');
+      if (badge) badge.textContent = String(state.observations.length);
+
+      ['dashboard', 'observe', 'history', 'analytics'].forEach(v => {
+        const btn = document.getElementById('nav-' + v);
+        if (btn) {
+          if (state.currentView === v) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        }
+      });
+
+      const viewEl = document.getElementById('app-view');
+      if (!viewEl) return;
+
+      if (state.currentView === 'observe') {
+        viewEl.innerHTML = renderObservationForm();
+      } else if (state.currentView === 'history') {
+        viewEl.innerHTML = renderHistory();
+      } else if (state.currentView === 'analytics') {
+        viewEl.innerHTML = renderAnalytics();
+      } else {
+        viewEl.innerHTML = renderDashboard();
+      }
+    }
+
+    // =========================================================================
+    // 13. SHARED WORKSPACE SYNC (NETLIFY DATABASE VIA /api)
+    // =========================================================================
+    class ApiError extends Error {
+      constructor(message, status) {
+        super(message);
+        this.status = status;
+      }
+    }
+
+    async function apiFetch(path, options) {
+      const opts = options || {};
+      const headers = Object.assign({ 'Content-Type': 'application/json' }, opts.headers || {});
+      let res;
+      try {
+        res = await fetch(path, Object.assign({}, opts, { headers, credentials: 'same-origin' }));
+      } catch (err) {
+        throw new ApiError('Network unavailable', 0);
+      }
+      const body = await res.json().catch(() => ({}));
+      if (res.status === 401) {
+        showSignedOut('Your session has ended. Please sign in again.');
+        throw new ApiError(body.error || 'Not signed in', 401);
+      }
+      if (!res.ok) throw new ApiError(body.error || ('Request failed (' + res.status + ')'), res.status);
+      return body;
+    }
+
+    function getOutbox() {
+      return loadJSON(STORAGE_KEYS.OUTBOX, []);
+    }
+
+    function applySharedData(data) {
+      const pending = getOutbox();
+      const serverIds = new Set((data.observations || []).map(o => o.id));
+      // Keep observations that were saved on this device but have not reached the server yet
+      const unsynced = pending.filter(o => !serverIds.has(o.id));
+      state.observations = unsynced.concat(data.observations || []);
+      state.teachers = data.teachers || [];
+      state.observers = data.observers || [];
+    }
+
+    async function loadSharedData() {
+      let data = await apiFetch('/api/data');
+      if (data.empty) {
+        // First sign-in on a brand-new workspace: carry over whatever this browser
+        // already had (or the sample dataset) so the team starts with familiar data.
+        data = await apiFetch('/api/reset', {
+          method: 'POST',
+          body: JSON.stringify({
+            onlyIfEmpty: true,
+            observations: loadJSON(STORAGE_KEYS.OBSERVATIONS, SAMPLE_OBSERVATIONS),
+            teachers: loadJSON(STORAGE_KEYS.TEACHERS, DEFAULT_TEACHERS),
+            observers: loadJSON(STORAGE_KEYS.OBSERVERS, DEFAULT_OBSERVERS)
+          })
+        });
+      }
+      applySharedData(data);
+    }
+
+    let refreshInFlight = false;
+    async function refreshSharedData(silent) {
+      if (refreshInFlight || !currentUser) return;
+      refreshInFlight = true;
+      try {
+        const before = state.observations.length;
+        await loadSharedData();
+        renderAppPreservingForm();
+        if (!silent && state.observations.length > before) {
+          showToast('Synced new observations from your team.', 'success');
+        }
+      } catch (err) {
+        if (err.status !== 401) updateOfflineIndicator('Offline • Changes Saved on Device');
+      } finally {
+        refreshInFlight = false;
+      }
+    }
+
+    // Avoid wiping half-typed inputs on the observation form when background sync lands
+    function renderAppPreservingForm() {
+      if (state.currentView === 'observe') {
+        const badge = document.getElementById('nav-count-badge');
+        if (badge) badge.textContent = String(state.observations.length);
+        return;
+      }
+      renderApp();
+    }
+
+    function notifyOtherTabs() {
+      safeSetItem(STORAGE_KEYS.SYNC_PING, String(Date.now()));
+    }
+
+    function queueObservationForSync(obs) {
+      const outbox = getOutbox().filter(o => o.id !== obs.id);
+      outbox.push(obs);
+      saveJSON(STORAGE_KEYS.OUTBOX, outbox);
+      flushOutbox();
+    }
+
+    let flushInFlight = false;
+    async function flushOutbox() {
+      if (flushInFlight || !currentUser) return;
+      const outbox = getOutbox();
+      if (!outbox.length) {
+        updateOfflineIndicator('Shared Workspace • Synced');
+        return;
+      }
+      flushInFlight = true;
+      updateOfflineIndicator('Syncing ' + outbox.length + ' observation' + (outbox.length === 1 ? '' : 's') + '…');
+      let failed = 0;
+      for (const obs of outbox) {
+        try {
+          const saved = await apiFetch('/api/observations', { method: 'POST', body: JSON.stringify(obs) });
+          const remaining = getOutbox().filter(o => o.id !== obs.id);
+          saveJSON(STORAGE_KEYS.OUTBOX, remaining);
+          const idx = state.observations.findIndex(o => o.id === saved.id);
+          if (idx >= 0) state.observations[idx] = saved;
+        } catch (err) {
+          failed++;
+          if (err.status === 401) break;
+        }
+      }
+      flushInFlight = false;
+      if (failed) {
+        updateOfflineIndicator('Offline • ' + failed + ' Waiting to Sync');
+        showToast('Saved on this device. It will sync to the shared workspace when you are back online.', 'info');
+      } else {
+        updateOfflineIndicator('Shared Workspace • Synced');
+        notifyOtherTabs();
+      }
+    }
+
+    async function saveRosterEntry(kind, name) {
+      try {
+        const data = await apiFetch('/api/roster', { method: 'POST', body: JSON.stringify({ kind, name }) });
+        state.teachers = data.teachers;
+        state.observers = data.observers;
+        showToast('Added ' + kind + ': ' + name, 'success');
+        notifyOtherTabs();
+      } catch (err) {
+        const list = kind === 'teacher' ? state.teachers : state.observers;
+        const i = list.indexOf(name);
+        if (i >= 0) list.splice(i, 1);
+        showToast('Could not add ' + kind + ': ' + err.message, 'error');
+      }
+      if (!document.getElementById('modal-backdrop').classList.contains('hidden')) openRosterModal();
+      renderApp();
+    }
+
+    // Cross-tab synchronization when another tab saves data
+    window.addEventListener('storage', function (e) {
+      if (e.key === STORAGE_KEYS.SYNC_PING) refreshSharedData(false);
+    });
+    window.addEventListener('online', function () { flushOutbox(); refreshSharedData(true); });
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'visible') refreshSharedData(false);
+    });
+
+    // =========================================================================
+    // 14. SIGN-IN (NETLIFY IDENTITY — INVITE-ONLY)
+    // =========================================================================
+    let currentUser = null;
+    let appStarted = false;
+
+    function authApi() {
+      return window.WIQAuth;
+    }
+
+    function waitForAuthLibrary() {
+      if (window.WIQAuth) return Promise.resolve(window.WIQAuth);
+      return new Promise((resolve, reject) => {
+        const timer = setTimeout(() => reject(new Error('Sign-in service failed to load. Please refresh the page.')), 15000);
+        window.addEventListener('wiq-auth-ready', function () {
+          clearTimeout(timer);
+          resolve(window.WIQAuth);
+        }, { once: true });
+      });
+    }
+
+    function friendlyAuthError(err, context) {
+      const A = authApi();
+      if (A && err instanceof A.MissingIdentityError) {
+        return 'Sign-in is not available on this deployment yet. Please contact your administrator.';
+      }
+      const status = err && err.status;
+      if (context === 'login' && (status === 400 || status === 401)) return 'Incorrect email or password.';
+      if (status === 404) return 'This link is invalid or has already been used.';
+      if (status === 422) return (err.message || 'Please check what you entered.') + (context !== 'login' ? ' (Passwords need at least 6 characters.)' : '');
+      if (/expired/i.test(err && err.message || '')) return 'This link has expired. Ask your administrator for a new invite, or use "Forgot password".';
+      return (err && err.message) || 'Something went wrong. Please try again.';
+    }
+
+    function authMessageHtml(msg) {
+      if (!msg) return '';
+      return '<div class="auth-message ' + (msg.type || 'error') + '">' + escapeHtml(msg.text) + '</div>';
+    }
+
+    function setAuthBusy(form, busy, label) {
+      const btn = form.querySelector('button[type="submit"]');
+      if (!btn) return;
+      if (busy) {
+        btn.dataset.label = btn.textContent;
+        btn.textContent = label || 'Please wait…';
+      } else if (btn.dataset.label) {
+        btn.textContent = btn.dataset.label;
+      }
+      btn.disabled = busy;
+    }
+
+    function showAuthScreen(html) {
+      document.body.classList.add('auth-locked');
+      document.getElementById('auth-screen').classList.remove('hidden');
+      document.getElementById('auth-body').innerHTML = html;
+      const first = document.querySelector('#auth-body input');
+      if (first) first.focus();
+    }
+
+    function showLoginForm(msg, email) {
+      showAuthScreen(`
+        <div class="stack-md">
+          <div>
+            <h1>Sign in</h1>
+            <p>Use the email address your invitation was sent to.</p>
+          </div>
+          ${authMessageHtml(msg)}
+          <form class="auth-form" onsubmit="handleLoginSubmit(event)">
+            <label>Email
+              <input class="input" type="email" name="email" autocomplete="email" required value="${escapeHtml(email || '')}" />
+            </label>
+            <label>Password
+              <input class="input" type="password" name="password" autocomplete="current-password" required />
+            </label>
+            <button type="submit" class="btn btn-primary">Sign in</button>
+          </form>
+          <button type="button" class="auth-link" onclick="showForgotPasswordForm()">Forgot password?</button>
+        </div>
+      `);
+    }
+
+    function showSetPasswordForm(mode, msg) {
+      const isInvite = mode === 'invite';
+      showAuthScreen(`
+        <div class="stack-md">
+          <div>
+            <h1>${isInvite ? 'Welcome! Create your password' : 'Choose a new password'}</h1>
+            <p>${isInvite ? 'You were invited to WalkthroughIQ. Set a password to finish creating your account.' : 'Enter a new password for your account.'}</p>
+          </div>
+          ${authMessageHtml(msg)}
+          <form class="auth-form" onsubmit="handleSetPasswordSubmit(event, '${isInvite ? 'invite' : 'recovery'}')">
+            <label>New password
+              <input class="input" type="password" name="password" autocomplete="new-password" minlength="6" required />
+            </label>
+            <label>Confirm password
+              <input class="input" type="password" name="confirm" autocomplete="new-password" minlength="6" required />
+            </label>
+            <button type="submit" class="btn btn-primary">${isInvite ? 'Create account &amp; continue' : 'Save password &amp; continue'}</button>
+          </form>
+        </div>
+      `);
+    }
+
+    function showForgotPasswordForm(msg) {
+      showAuthScreen(`
+        <div class="stack-md">
+          <div>
+            <h1>Reset your password</h1>
+            <p>We'll email you a link to choose a new password.</p>
+          </div>
+          ${authMessageHtml(msg)}
+          <form class="auth-form" onsubmit="handleForgotSubmit(event)">
+            <label>Email
+              <input class="input" type="email" name="email" autocomplete="email" required />
+            </label>
+            <button type="submit" class="btn btn-primary">Send reset link</button>
+          </form>
+          <button type="button" class="auth-link" onclick="showLoginForm()">Back to sign in</button>
+        </div>
+      `);
+    }
+
+    let pendingInviteToken = null;
+
+    async function handleLoginSubmit(event) {
+      event.preventDefault();
+      const form = event.target;
+      const email = form.email.value.trim();
+      setAuthBusy(form, true, 'Signing in…');
+      try {
+        const user = await authApi().login(email, form.password.value);
+        await enterApp(user);
+      } catch (err) {
+        showLoginForm({ type: 'error', text: friendlyAuthError(err, 'login') }, email);
+      }
+    }
+
+    async function handleSetPasswordSubmit(event, mode) {
+      event.preventDefault();
+      const form = event.target;
+      const password = form.password.value;
+      if (password !== form.confirm.value) {
+        showSetPasswordForm(mode, { type: 'error', text: 'Passwords do not match.' });
+        return;
+      }
+      setAuthBusy(form, true, 'Saving…');
+      try {
+        let user;
+        if (mode === 'invite') {
+          user = await authApi().acceptInvite(pendingInviteToken, password);
+          pendingInviteToken = null;
+        } else {
+          user = await authApi().updateUser({ password });
+        }
+        await enterApp(user);
+        showToast(mode === 'invite' ? 'Your account is ready. Welcome to WalkthroughIQ!' : 'Password updated.', 'success');
+      } catch (err) {
+        showSetPasswordForm(mode, { type: 'error', text: friendlyAuthError(err, mode) });
+      }
+    }
+
+    async function handleForgotSubmit(event) {
+      event.preventDefault();
+      const form = event.target;
+      setAuthBusy(form, true, 'Sending…');
+      try {
+        await authApi().requestPasswordRecovery(form.email.value.trim());
+      } catch (err) {
+        // Same response either way so the form doesn't reveal who has an account
+      }
+      showLoginForm({ type: 'success', text: 'If that email has an account, a reset link is on its way. Check your inbox.' });
+    }
+
+    function showSignedOut(message) {
+      currentUser = null;
+      closeModal();
+      showLoginForm(message ? { type: 'error', text: message } : null);
+    }
+
+    async function signOut() {
+      try {
+        await authApi().logout();
+      } catch (err) {
+        // Clear the UI even if the network call fails
+      }
+      currentUser = null;
+      closeModal();
+      showLoginForm({ type: 'success', text: 'You have been signed out.' });
+    }
+
+    async function enterApp(user) {
+      currentUser = user;
+      const chip = document.getElementById('user-chip-email');
+      if (chip) {
+        chip.textContent = user.name || user.email;
+        chip.title = user.email;
+      }
+      showAuthScreen('<p>Loading your shared workspace…</p>');
+      try {
+        await loadSharedData();
+      } catch (err) {
+        if (err.status === 401) return;
+        // Offline or server hiccup: fall back to what this device already has
+        applySharedData({
+          observations: loadJSON(STORAGE_KEYS.OBSERVATIONS, []),
+          teachers: loadJSON(STORAGE_KEYS.TEACHERS, DEFAULT_TEACHERS),
+          observers: loadJSON(STORAGE_KEYS.OBSERVERS, DEFAULT_OBSERVERS)
+        });
+        showToast('Could not reach the shared workspace. Showing data saved on this device.', 'error');
+      }
+
+      document.getElementById('auth-screen').classList.add('hidden');
+      document.body.classList.remove('auth-locked');
+
+      if (!appStarted) {
+        appStarted = true;
+        state.savedDraft = loadJSON(STORAGE_KEYS.DRAFT, null);
+        resetObservationFormState(state.currentView === 'observe', preselectedTeacherParam);
+      }
+      renderApp();
+      flushOutbox();
+    }
+
+    window.onload = async function () {
+      let A;
+      try {
+        A = await waitForAuthLibrary();
+      } catch (err) {
+        showAuthScreen(authMessageHtml({ type: 'error', text: err.message }));
+        return;
+      }
+
+      // Signed out in another tab, or the session could not be refreshed
+      A.onAuthChange(function (event) {
+        if (event === 'logout' && currentUser) showSignedOut('You were signed out.');
+      });
+
+      // Handle links from invite / password-reset emails (#invite_token=…, #recovery_token=…)
+      try {
+        const result = await A.handleAuthCallback();
+        if (result) {
+          history.replaceState(null, '', window.location.pathname + window.location.search);
+          if (result.type === 'invite' && result.token) {
+            pendingInviteToken = result.token;
+            showSetPasswordForm('invite');
+            return;
+          }
+          if (result.type === 'recovery') {
+            currentUser = result.user;
+            showSetPasswordForm('recovery');
+            return;
+          }
+          if (result.user) {
+            await enterApp(result.user);
+            if (result.type === 'confirmation') showToast('Email confirmed. Welcome!', 'success');
+            return;
+          }
+        }
+      } catch (err) {
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+        showLoginForm({ type: 'error', text: friendlyAuthError(err, 'callback') });
+        return;
+      }
+
+      const user = await A.getUser();
+      if (user) {
+        await enterApp(user);
+      } else {
+        showLoginForm();
+      }
+
+    };
+  </script>
+  <script type="module" src="/vendor/identity.js"></script>
+</body>
+</html>
