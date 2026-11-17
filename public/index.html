@@ -1375,253 +1375,19 @@
     ];
 
     // =========================================================================
-    // 3. SEED DATA & STORAGE KEYS (8 REALISTIC SY26-27 OBSERVATIONS)
+    // 3. DEFAULT ROSTER & STORAGE KEYS
     // =========================================================================
     const STORAGE_KEYS = {
-      OBSERVATIONS: 'walkthroughiq_sy26_27_obs_v3',
-      TEACHERS: 'walkthroughiq_sy26_27_teachers_v3',
-      OBSERVERS: 'walkthroughiq_sy26_27_observers_v3',
-      DRAFT: 'walkthroughiq_sy26_27_draft_v3',
-      OUTBOX: 'walkthroughiq_sy26_27_outbox_v1',
+      OBSERVATIONS: 'walkthroughiq_sy26_27_obs_v4',
+      TEACHERS: 'walkthroughiq_sy26_27_teachers_v4',
+      OBSERVERS: 'walkthroughiq_sy26_27_observers_v4',
+      DRAFT: 'walkthroughiq_sy26_27_draft_v4',
+      OUTBOX: 'walkthroughiq_sy26_27_outbox_v2',
       SYNC_PING: 'walkthroughiq_sync_ping'
     };
 
     const DEFAULT_TEACHERS = ['L. Hawkins', 'K. Yoder', 'M. Schaefer'];
-    const DEFAULT_OBSERVERS = ['Q. Jones', 'L. Holmes', 'B. Germain', 'B. Gonzalez'];
-
-    const SAMPLE_OBSERVATIONS = [
-      {
-        id: 'obs-101',
-        teacher: 'L. Hawkins',
-        observer: 'Q. Jones',
-        date: '2026-11-12',
-        scheduledTime: '8:30 AM',
-        lessonCodes: 'AR1, AR2',
-        startTimestamp: '2026-11-12 08:32:10 AM',
-        endTimestamp: '2026-11-12 08:49:40 AM',
-        durationSeconds: 1050,
-        scores: {
-          routines: 4, classroom_management: 4, pacing: 3, questions_tasks: 3,
-          frequent_practice: 4, breadth_practice: 3, depth_practice: 2,
-          cfu: 3, monitoring: 3, responding: 2
-        },
-        notes: {
-          routines: 'Students grabbed Declaration handouts at door and started bell ringer within 40 seconds.',
-          depth_practice: 'Students categorized grievances accurately, though 4 pairs needed prompting to cite exact lines.',
-          responding: 'Circulated well; consider pausing whole group when 3 tables missed the Mercantilism question.'
-        },
-        componentTags: {
-          routines: ['Handouts Picked Up at Entry', 'Bell Ringer On-Time'],
-          frequent_practice: ['Think-Pair-Share A/B', 'ABCD Cards / Plickers']
-        },
-        duringNotes: 'High energy American Revolution source analysis lesson. Strong Partner A/B structure.',
-        glows: 'Seamless entry routine and crisp Think-Pair-Share Partner A/B time limits kept 100% of students talking.',
-        grows: 'During Bucketing, push students to return to the primary source text when asked "What evidence supports your answer?"',
-        nextActionStep: 'Post a visible sentence stem on the slide ("According to Source __, ...") for tomorrow\'s DOL.',
-        evidenceTags: ['Bell Ringer On-Time', 'Think-Pair-Share A/B', 'ABCD Cards / Plickers', 'Primary Source Evidence'],
-        photos: [SAMPLE_PHOTOS[0]]
-      },
-      {
-        id: 'obs-102',
-        teacher: 'K. Yoder',
-        observer: 'L. Holmes',
-        date: '2026-11-02',
-        scheduledTime: '9:25 AM',
-        lessonCodes: 'CON4',
-        startTimestamp: '2026-11-02 09:26:00 AM',
-        endTimestamp: '2026-11-02 09:41:30 AM',
-        durationSeconds: 930,
-        scores: {
-          routines: 4, classroom_management: 3, pacing: 2, questions_tasks: 3,
-          frequent_practice: 3, breadth_practice: 3, depth_practice: 3,
-          cfu: 3, monitoring: 3, responding: 3
-        },
-        notes: {
-          pacing: 'Direct teach ran 6 minutes over; DOL exit ticket felt rushed in final 3 minutes.',
-          cfu: 'Used finger signals for 3-branches check and called on two students to justify.'
-        },
-        componentTags: {
-          cfu: ['ABCD / Finger Signals Read', 'Students Justify Answer']
-        },
-        duringNotes: 'Constitutional Convention compromises lesson. Strong questioning around Great Compromise.',
-        glows: 'Deliberate finger-signal CFU followed by "Why did you choose B?" surfaced student reasoning clearly.',
-        grows: 'Tighten mini-lesson transitions using a visible countdown timer so at least 7 minutes remain for the DOL.',
-        nextActionStep: 'Set an 8-minute timer on the slideshow for the Guided Practice block in Lesson CON5.',
-        evidenceTags: ['Cold Call / Show Call', 'Primary Source Evidence', 'Individual Feedback'],
-        photos: []
-      },
-      {
-        id: 'obs-103',
-        teacher: 'M. Schaefer',
-        observer: 'B. Germain',
-        date: '2026-10-15',
-        scheduledTime: '10:20 AM',
-        lessonCodes: 'EC 7',
-        startTimestamp: '2026-10-15 10:21:15 AM',
-        endTimestamp: '2026-10-15 10:36:15 AM',
-        durationSeconds: 900,
-        scores: {
-          routines: 3, classroom_management: 3, pacing: 3, questions_tasks: 2,
-          frequent_practice: 2, breadth_practice: 2, depth_practice: 2,
-          cfu: 2, monitoring: 3, responding: 2
-        },
-        notes: {
-          frequent_practice: 'Mostly whole-group hand-raising; embed Partner A/B turn-and-talks before calling on volunteers.',
-          depth_practice: 'Questions focused primarily on recall of Triangular Trade definitions rather than source application.'
-        },
-        componentTags: {
-          monitoring: ['Active Circulation']
-        },
-        duringNotes: 'Early Colonial Economics (EC 7). Teacher circulated actively during map labeling.',
-        glows: 'Active circulation during independent map work; redirected off-task chatter calmly without halting instruction.',
-        grows: 'Increase Breadth of Practice by assigning Partner A and Partner B roles so every student verbalizes thinking.',
-        nextActionStep: 'Script two Partner A/B Think-Pair-Share prompts into tomorrow\'s slide deck.',
-        evidenceTags: ['Bell Ringer On-Time', 'Individual Feedback'],
-        photos: []
-      },
-      {
-        id: 'obs-104',
-        teacher: 'L. Hawkins',
-        observer: 'B. Gonzalez',
-        date: '2026-10-28',
-        scheduledTime: '1:15 PM',
-        lessonCodes: 'CON1, CON2',
-        startTimestamp: '2026-10-28 01:16:00 PM',
-        endTimestamp: '2026-10-28 01:34:00 PM',
-        durationSeconds: 1080,
-        scores: {
-          routines: 4, classroom_management: 4, pacing: 4, questions_tasks: 4,
-          frequent_practice: 4, breadth_practice: 4, depth_practice: 3,
-          cfu: 4, monitoring: 3, responding: 3
-        },
-        notes: {
-          pacing: 'Visible 8-minute timer kept Apply and DOL right on schedule.',
-          cfu: 'Used ABCD accountability cards across 100% of students before revealing Federalist answer.'
-        },
-        componentTags: {
-          pacing: ['Timer Used', 'Time Reserved for DOL'],
-          cfu: ['ABCD / Finger Signals Read']
-        },
-        duringNotes: 'Articles of Confederation weaknesses into Federalist Papers. Exemplary pacing and student accountability.',
-        glows: '100% participation via ABCD cards plus strict adherence to visible timer ensured full DOL completion.',
-        grows: 'During circulation, prompt early finishers to critique an opposing Federalist/Anti-Federalist viewpoint.',
-        nextActionStep: 'Share ABCD card protocol at Thursday\'s G8 Social Studies PLC.',
-        evidenceTags: ['Timer Used', 'ABCD Cards / Plickers', 'Time Reserved for DOL', 'Think-Pair-Share A/B'],
-        photos: [SAMPLE_PHOTOS[1]]
-      },
-      {
-        id: 'obs-105',
-        teacher: 'K. Yoder',
-        observer: 'Q. Jones',
-        date: '2026-10-22',
-        scheduledTime: '11:10 AM',
-        lessonCodes: 'AR5',
-        startTimestamp: '2026-10-22 11:12:00 AM',
-        endTimestamp: '2026-10-22 11:27:00 AM',
-        durationSeconds: 900,
-        scores: {
-          routines: 4, classroom_management: 4, pacing: 3, questions_tasks: 3,
-          frequent_practice: 3, breadth_practice: 2, depth_practice: 2,
-          cfu: 3, monitoring: 2, responding: 2
-        },
-        notes: {
-          breadth_practice: 'Partner A spoke in most pairs, but Partner B rarely had a structured turn.',
-          responding: 'Used timeline anchor chart effectively when clarifying Saratoga turning point.'
-        },
-        componentTags: {
-          responding: ['Anchor Chart Scaffold']
-        },
-        duringNotes: 'Turning points of the American Revolution. Good use of classroom timeline wall.',
-        glows: 'Pointed struggling students directly to the classroom timeline anchor chart to scaffold chronological reasoning.',
-        grows: 'Explicitly cue "Partner B, your turn to share for 30 seconds" during Think-Pair-Share.',
-        nextActionStep: 'Add Partner A / Partner B timer icons to discussion slides.',
-        evidenceTags: ['Anchor Chart Scaffold', 'Bell Ringer On-Time'],
-        photos: []
-      },
-      {
-        id: 'obs-106',
-        teacher: 'M. Schaefer',
-        observer: 'L. Holmes',
-        date: '2026-10-08',
-        scheduledTime: '2:10 PM',
-        lessonCodes: 'EC 4',
-        startTimestamp: '2026-10-08 02:11:00 PM',
-        endTimestamp: '2026-10-08 02:25:00 PM',
-        durationSeconds: 840,
-        scores: {
-          routines: 3, classroom_management: 3, pacing: 2, questions_tasks: 3,
-          frequent_practice: 2, breadth_practice: 2, depth_practice: 2,
-          cfu: 2, monitoring: 2, responding: 2
-        },
-        notes: {
-          pacing: 'Bell ringer review took 11 minutes, compressing partner source work.',
-          cfu: 'Need a whole-class check (finger signals or ABCD) before releasing to independent work.'
-        },
-        componentTags: {},
-        duringNotes: 'Afternoon section; students engaged once primary source excerpt was projected.',
-        glows: 'Positive narration ("Thank you Row 2 for having binders open to page 14") quickly settled afternoon transitions.',
-        grows: 'Cap bell ringer review at 4 minutes and add a whole-class CFU prior to independent practice.',
-        nextActionStep: 'Use a 4-minute timer for bell ringer + review tomorrow.',
-        evidenceTags: ['Timer Used', 'Primary Source Evidence'],
-        photos: []
-      },
-      {
-        id: 'obs-107',
-        teacher: 'L. Hawkins',
-        observer: 'B. Germain',
-        date: '2026-11-09',
-        scheduledTime: '8:30 AM',
-        lessonCodes: 'CON6',
-        startTimestamp: '2026-11-09 08:31:00 AM',
-        endTimestamp: '2026-11-09 08:47:30 AM',
-        durationSeconds: 990,
-        scores: {
-          routines: 4, classroom_management: 4, pacing: 4, questions_tasks: 4,
-          frequent_practice: 3, breadth_practice: 4, depth_practice: 3,
-          cfu: 3, monitoring: 4, responding: 3
-        },
-        notes: {
-          monitoring: 'Teacher carried a clipboard while circulating and logged misconceptions on Bill of Rights scenarios.'
-        },
-        componentTags: {
-          monitoring: ['Active Circulation', 'Reviews Written DOL Work']
-        },
-        duringNotes: 'Bill of Rights amendment matching & scenario analysis.',
-        glows: 'Systematic circulation with clipboard tracking allowed targeted 1-on-1 feedback during Apply.',
-        grows: 'Have students show-call exemplary written justifications under the document camera before exit.',
-        nextActionStep: 'Select 2 student exemplars during DOL to project and unpack.',
-        evidenceTags: ['Cold Call / Show Call', 'Individual Feedback', 'Time Reserved for DOL'],
-        photos: []
-      },
-      {
-        id: 'obs-108',
-        teacher: 'K. Yoder',
-        observer: 'B. Gonzalez',
-        date: '2026-10-30',
-        scheduledTime: '9:25 AM',
-        lessonCodes: 'CON3',
-        startTimestamp: '2026-10-30 09:26:30 AM',
-        endTimestamp: '2026-10-30 09:42:00 AM',
-        durationSeconds: 930,
-        scores: {
-          routines: 4, classroom_management: 3, pacing: 3, questions_tasks: 3,
-          frequent_practice: 3, breadth_practice: 3, depth_practice: 2,
-          cfu: 3, monitoring: 3, responding: 3
-        },
-        notes: {
-          depth_practice: 'Students identified checks and balances correctly; push for deeper explanation of why framers included them.'
-        },
-        componentTags: {
-          frequent_practice: ['Think-Pair-Share A/B']
-        },
-        duringNotes: 'Three Branches & Checks and Balances graphic organizer.',
-        glows: 'Clear verbal cues and structured Think-Pair-Share kept pairs focused on historical evidence.',
-        grows: 'Require students to cite the specific Constitutional Article in their written DOL explanation.',
-        nextActionStep: 'Add an Article citation requirement to tomorrow\'s exit ticket rubric.',
-        evidenceTags: ['Think-Pair-Share A/B', 'Anchor Chart Scaffold', 'Individual Feedback'],
-        photos: []
-      }
-    ];
+    const DEFAULT_OBSERVERS = [];
 
     // =========================================================================
     // 4. APPLICATION STATE & INITIALIZATION
@@ -1726,7 +1492,7 @@
         layoutMode: 'tabs', // 'tabs' | 'matrix'
         activeDomainTab: 'domain_env',
         teacher: preselectedTeacher || '',
-        observer: state.observers[0] || 'Q. Jones',
+        observer: state.observers[0] || '',
         date: getTodayISO(),
         scheduledTime: getCurrentTimeFormatted(),
         lessonCodes: '',
@@ -2096,9 +1862,6 @@
 
               <div style="padding: 12px 22px; background: #f8fafc; border-top: 1px solid var(--border-light); display:flex; justify-content:space-between; align-items:center; font-size:11px; color:var(--text-muted); border-bottom-left-radius:16px; border-bottom-right-radius:16px;">
                 <span>Thresholds: ≤14d On Track • 15–25d Due Soon • &gt;25d Overdue</span>
-                <button style="background:none; border:none; color:var(--text-secondary); text-decoration:underline; cursor:pointer; font-size:11px; font-weight:700;" onclick="resetDemoData()">
-                  Reset Sample Data
-                </button>
               </div>
             </div>
 
@@ -3602,30 +3365,6 @@
       document.getElementById('modal-backdrop').classList.add('hidden');
     }
 
-    async function resetDemoData() {
-      const ok = window.confirm('This replaces ALL shared observations and the roster for every participant with the sample dataset. Continue?');
-      if (!ok) return;
-      try {
-        const data = await apiFetch('/api/reset', {
-          method: 'POST',
-          body: JSON.stringify({
-            observations: SAMPLE_OBSERVATIONS,
-            teachers: DEFAULT_TEACHERS,
-            observers: DEFAULT_OBSERVERS
-          })
-        });
-        applySharedData(data);
-        safeRemoveItem(STORAGE_KEYS.DRAFT);
-        safeRemoveItem(STORAGE_KEYS.OUTBOX);
-        state.savedDraft = null;
-        renderApp();
-        notifyOtherTabs();
-        showToast('Restored default SY26-27 G8 Social Studies sample dataset.', 'info');
-      } catch (err) {
-        showToast('Could not reset data: ' + err.message, 'error');
-      }
-    }
-
     // =========================================================================
     // 12. MAIN RENDER CONTROLLER & WINDOW ONLOAD BOOTSTRAP
     // =========================================================================
@@ -3703,15 +3442,14 @@
     async function loadSharedData() {
       let data = await apiFetch('/api/data');
       if (data.empty) {
-        // First sign-in on a brand-new workspace: carry over whatever this browser
-        // already had (or the sample dataset) so the team starts with familiar data.
+        // Brand-new workspace: start clean with just the default teacher roster.
         data = await apiFetch('/api/reset', {
           method: 'POST',
           body: JSON.stringify({
             onlyIfEmpty: true,
-            observations: loadJSON(STORAGE_KEYS.OBSERVATIONS, SAMPLE_OBSERVATIONS),
-            teachers: loadJSON(STORAGE_KEYS.TEACHERS, DEFAULT_TEACHERS),
-            observers: loadJSON(STORAGE_KEYS.OBSERVERS, DEFAULT_OBSERVERS)
+            observations: [],
+            teachers: DEFAULT_TEACHERS,
+            observers: DEFAULT_OBSERVERS
           })
         });
       }
