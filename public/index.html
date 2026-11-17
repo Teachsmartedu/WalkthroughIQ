@@ -467,6 +467,12 @@
       gap: 14px;
     }
 
+    .grid-6 {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 12px;
+    }
+
     .grid-5 {
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -989,7 +995,7 @@
     @media (max-width: 1024px) {
       .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .grid-2 { grid-template-columns: 1fr; }
-      .grid-5 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .grid-5, .grid-6 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .domain-tabs-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .component-split { grid-template-columns: 1fr; }
       .hero-actions-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); width: 100%; }
@@ -998,7 +1004,7 @@
     @media (max-width: 640px) {
       .grid-4 { grid-template-columns: 1fr; }
       .grid-3 { grid-template-columns: 1fr; }
-      .grid-5 { grid-template-columns: 1fr; }
+      .grid-5, .grid-6 { grid-template-columns: 1fr; }
       .domain-tabs-row { grid-template-columns: 1fr; }
       .hero-actions-grid { grid-template-columns: 1fr; }
       .offline-pill { display: none; }
@@ -1509,6 +1515,8 @@
       if (el) el.textContent = label || 'Offline-Ready • Auto-Saved';
     }
 
+    const CLASS_PERIODS = ['1st Period', '2nd Period', '3rd Period', '4th Period', '5th Period', '6th Period', '7th Period', '8th Period'];
+
     function createBlankFormState(startTimer, preselectedTeacher) {
       const now = new Date();
       return {
@@ -1517,6 +1525,7 @@
         observer: state.observers[0] || '',
         date: getTodayISO(),
         scheduledTime: getCurrentTimeFormatted(),
+        classPeriod: '',
         lessonCodes: '',
         startEpoch: startTimer ? now.getTime() : null,
         startTimestamp: startTimer ? formatFullTimestamp(now) : '',
@@ -1968,7 +1977,7 @@
                       <tr class="clickable-row" onclick="openReportModal('${obs.id}')">
                         <td class="tabular-nums">
                           <div style="font-weight:800; color:var(--text-primary);">${escapeHtml(obs.date)}</div>
-                          <div style="font-size:11px; color:var(--text-muted);">${escapeHtml(obs.scheduledTime)} (${formatDuration(obs.durationSeconds)})</div>
+                          <div style="font-size:11px; color:var(--text-muted);">${escapeHtml(obs.scheduledTime)}${obs.classPeriod ? ' • ' + escapeHtml(obs.classPeriod) : ''} (${formatDuration(obs.durationSeconds)})</div>
                         </td>
                         <td style="font-weight:800; color:var(--text-primary);">${escapeHtml(obs.teacher)}</td>
                         <td>${escapeHtml(obs.observer)}</td>
@@ -2028,8 +2037,8 @@
               </div>
             </div>
 
-            <!-- Observation Metadata Bar (Questions 1-5) -->
-            <div class="grid-5" style="padding-top:14px;">
+            <!-- Observation Metadata Bar (Questions 1-6) -->
+            <div class="grid-6" style="padding-top:14px;">
               <div>
                 <label class="field-label">1. Teacher Observed *</label>
                 <div style="display:flex; gap:4px;">
@@ -2063,7 +2072,15 @@
               </div>
 
               <div>
-                <label class="field-label">5. Curriculum Lesson Code(s) *</label>
+                <label class="field-label">5. Class Period *</label>
+                <select class="select" onchange="updateFormField('classPeriod', this.value)">
+                  <option value="">Select Period...</option>
+                  ${CLASS_PERIODS.map(p => `<option value="${escapeHtml(p)}" ${f.classPeriod === p ? 'selected' : ''}>${escapeHtml(p)}</option>`).join('')}
+                </select>
+              </div>
+
+              <div>
+                <label class="field-label">6. Curriculum Lesson Code(s) *</label>
                 <input type="text" class="input" placeholder="e.g., EC 7, AR1, CON4" value="${escapeHtml(f.lessonCodes)}" oninput="updateFormField('lessonCodes', this.value)" />
               </div>
             </div>
@@ -2394,8 +2411,8 @@
 
     function submitObservation() {
       const f = state.form;
-      if (!f.teacher || !f.observer || !f.date) {
-        showToast('Please select Teacher, Observer, and Date before submitting.', 'error');
+      if (!f.teacher || !f.observer || !f.date || !f.classPeriod) {
+        showToast('Please select Teacher, Observer, Date, and Class Period before submitting.', 'error');
         return;
       }
 
@@ -2414,6 +2431,7 @@
         observer: f.observer,
         date: f.date,
         scheduledTime: f.scheduledTime || getCurrentTimeFormatted(),
+        classPeriod: f.classPeriod || '',
         lessonCodes: f.lessonCodes.trim() || 'Unspecified',
         startTimestamp: f.startTimestamp || endTimestamp,
         endTimestamp,
@@ -2834,7 +2852,7 @@
     function exportAnalyticsCSV() {
       const filteredObs = getFilteredObservations();
       const headers = [
-        'Observation ID', 'Date', 'Scheduled Time', 'Start Timestamp', 'End Timestamp', 'Duration (Mins)',
+        'Observation ID', 'Date', 'Scheduled Time', 'Class Period', 'Start Timestamp', 'End Timestamp', 'Duration (Mins)',
         'Teacher', 'Observer', 'Lesson Codes', 'Overall Avg', 'Evidence Tags', 'Photo Count',
         ...ALL_COMPONENTS.map(c => c.number + '. ' + c.name),
         'Glows', 'Grows', 'Next Action Step'
@@ -2846,6 +2864,7 @@
           obs.id,
           obs.date,
           obs.scheduledTime,
+          obs.classPeriod || '',
           obs.startTimestamp || '',
           obs.endTimestamp || '',
           Math.round((obs.durationSeconds || 0) / 60),
@@ -2886,7 +2905,7 @@
         if (tFilter !== 'ALL' && obs.teacher !== tFilter) return false;
         if (!q) return true;
         const hay = [
-          obs.teacher, obs.observer, obs.date, obs.lessonCodes,
+          obs.teacher, obs.observer, obs.date, obs.classPeriod || '', obs.lessonCodes,
           obs.glows, obs.grows, obs.nextActionStep, (obs.evidenceTags || []).join(' ')
         ].join(' ').toLowerCase();
         return hay.includes(q);
@@ -2942,7 +2961,7 @@
                       <tr class="clickable-row" onclick="openReportModal('${obs.id}')">
                         <td class="tabular-nums">
                           <div style="font-weight:800; color:var(--text-primary);">${escapeHtml(obs.date)}</div>
-                          <div style="font-size:11px; color:var(--text-muted);">${escapeHtml(obs.scheduledTime)} • ${formatDuration(obs.durationSeconds)}</div>
+                          <div style="font-size:11px; color:var(--text-muted);">${escapeHtml(obs.scheduledTime)}${obs.classPeriod ? ' • ' + escapeHtml(obs.classPeriod) : ''} • ${formatDuration(obs.durationSeconds)}</div>
                         </td>
                         <td style="font-weight:800; color:var(--text-primary);">${escapeHtml(obs.teacher)}</td>
                         <td>${escapeHtml(obs.observer)}</td>
@@ -2991,6 +3010,7 @@
                 <span><strong>Teacher:</strong> ${escapeHtml(obs.teacher)}</span>
                 <span><strong>Observer:</strong> ${escapeHtml(obs.observer)}</span>
                 <span><strong>Date &amp; Time:</strong> ${escapeHtml(obs.date)} (${escapeHtml(obs.scheduledTime)})</span>
+                <span><strong>Class Period:</strong> ${escapeHtml(obs.classPeriod || '—')}</span>
                 <span><strong>Lesson(s):</strong> ${escapeHtml(obs.lessonCodes)}</span>
               </div>
               <div style="font-size:11px; color:var(--text-muted); margin-top:6px;" class="tabular-nums">
@@ -3108,7 +3128,7 @@
       const text = [
         'WALKTHROUGHIQ — INSTRUCTIONAL QUALITY (G8 SOCIAL STUDIES SY26-27)',
         'Teacher: ' + obs.teacher + ' | Observer: ' + obs.observer,
-        'Date: ' + obs.date + ' (' + obs.scheduledTime + ') | Lesson(s): ' + obs.lessonCodes,
+        'Date: ' + obs.date + ' (' + obs.scheduledTime + ') | Class Period: ' + (obs.classPeriod || 'N/A') + ' | Lesson(s): ' + obs.lessonCodes,
         'Start: ' + (obs.startTimestamp || '') + ' | End: ' + (obs.endTimestamp || '') + ' | Overall Avg: ' + (avg !== null ? avg.toFixed(2) : 'N/A') + '/4.0',
         '',
         'GLOWS: ' + (obs.glows || 'N/A'),
