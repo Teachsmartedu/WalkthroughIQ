@@ -1489,8 +1489,7 @@
     function createBlankFormState(startTimer, preselectedTeacher) {
       const now = new Date();
       return {
-        layoutMode: 'tabs', // 'tabs' | 'matrix'
-        activeDomainTab: 'domain_env',
+        layoutMode: 'matrix',
         teacher: preselectedTeacher || '',
         observer: state.observers[0] || '',
         date: getTodayISO(),
@@ -1549,6 +1548,7 @@
       state.form = {
         ...createBlankFormState(true),
         ...draft,
+        layoutMode: 'matrix',
         startEpoch: draft.startEpoch || Date.now()
       };
       state.currentView = 'observe';
@@ -1998,14 +1998,6 @@
               </div>
 
               <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
-                <div style="display:inline-flex; background:var(--bg-subtle); padding:3px; border-radius:10px; border:1px solid var(--border-light);">
-                  <button class="btn btn-sm" style="${f.layoutMode === 'tabs' ? 'background:#fff; color:var(--indigo-700); border-color:var(--border-light); box-shadow:var(--shadow-xs);' : 'background:transparent; color:var(--text-secondary);'}" onclick="setFormLayoutMode('tabs')">
-                    1. Domain Tabs
-                  </button>
-                  <button class="btn btn-sm" style="${f.layoutMode === 'matrix' ? 'background:#fff; color:var(--indigo-700); border-color:var(--border-light); box-shadow:var(--shadow-xs);' : 'background:transparent; color:var(--text-secondary);'}" onclick="setFormLayoutMode('matrix')">
-                    2. Spreadsheet Matrix (All 10)
-                  </button>
-                </div>
 
                 <button class="btn btn-emerald" onclick="submitObservation()">
                   ✓ Complete &amp; Submit
@@ -2066,164 +2058,7 @@
             </div>
           </div>
 
-          ${f.layoutMode === 'tabs' ? renderDomainTabsWorkspace() : renderSpreadsheetMatrixWorkspace()}
-        </div>
-      `;
-    }
-
-    function renderDomainTabsWorkspace() {
-      const f = state.form;
-      const activeTab = f.activeDomainTab;
-
-      const domainTabHtml = RUBRIC_DOMAINS.map(domain => {
-        const total = domain.components.length;
-        const done = domain.components.filter(c => typeof f.scores[c.id] === 'number').length;
-        const isActive = activeTab === domain.id;
-        return `
-          <button type="button" class="domain-tab-btn ${isActive ? 'active' : ''}" onclick="setActiveDomainTab('${domain.id}')">
-            <div style="display:flex; align-items:center; justify-content:space-between; gap:6px;">
-              <span style="font-size:10px; font-weight:800; text-transform:uppercase; opacity:${isActive ? '0.85' : '0.65'};">${escapeHtml(domain.subtitle)}</span>
-              <span class="badge ${isActive ? 'badge-indigo' : done === total ? 'badge-emerald' : 'badge-slate'} tabular-nums" style="${isActive ? 'background:rgba(255,255,255,0.2); color:#fff; border-color:transparent;' : ''}">
-                ${done}/${total} scored
-              </span>
-            </div>
-            <div style="font-weight:800; font-size:14px; margin-top:5px;">${escapeHtml(domain.title)}</div>
-          </button>
-        `;
-      }).join('');
-
-      const feedbackNotesDone = [f.duringNotes, f.glows, f.grows, f.nextActionStep].filter(v => v && v.trim().length > 0).length;
-      const artifactCount = f.evidenceTags.length + f.photos.length;
-      const isFeedbackActive = activeTab === 'feedback';
-
-      const feedbackTabHtml = `
-        <button type="button" class="domain-tab-btn ${isFeedbackActive ? 'active' : ''}" onclick="setActiveDomainTab('feedback')">
-          <div style="display:flex; align-items:center; justify-content:space-between; gap:6px;">
-            <span style="font-size:10px; font-weight:800; text-transform:uppercase; opacity:${isFeedbackActive ? '0.85' : '0.65'};">Coaching &amp; Artifacts</span>
-            <span class="badge ${isFeedbackActive ? 'badge-indigo' : (feedbackNotesDone + artifactCount) > 0 ? 'badge-emerald' : 'badge-slate'} tabular-nums" style="${isFeedbackActive ? 'background:rgba(255,255,255,0.2); color:#fff; border-color:transparent;' : ''}">
-              ${feedbackNotesDone}/4 notes${artifactCount > 0 ? ' • ' + artifactCount + ' items' : ''}
-            </span>
-          </div>
-          <div style="font-weight:800; font-size:14px; margin-top:5px;">4. Coaching, Evidence &amp; Photos</div>
-        </button>
-      `;
-
-      let bodyPanel = '';
-      if (isFeedbackActive) {
-        bodyPanel = renderFeedbackAndArtifactsPanel();
-      } else {
-        const domain = RUBRIC_DOMAINS.find(d => d.id === activeTab) || RUBRIC_DOMAINS[0];
-        bodyPanel = `
-          <div class="card">
-            <div class="card-header">
-              <div>
-                <span style="font-size:11px; font-weight:800; text-transform:uppercase; color:var(--indigo-700);">${escapeHtml(domain.subtitle)}</span>
-                <h2 class="card-title" style="font-size:18px;">${escapeHtml(domain.title)}</h2>
-              </div>
-              <p class="card-subtitle" style="max-width:540px; font-style:italic;">"${escapeHtml(domain.question)}"</p>
-            </div>
-            <div>
-              ${domain.components.map(comp => renderComponentCard(comp)).join('')}
-            </div>
-          </div>
-        `;
-      }
-
-      return `
-        <div class="stack-md">
-          <div class="domain-tabs-row">
-            ${domainTabHtml}
-            ${feedbackTabHtml}
-          </div>
-
-          ${bodyPanel}
-
-          <div class="card card-padded" style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
-            <span style="font-size:12px; color:var(--text-muted);">
-              Jump freely between tabs or switch to <button type="button" style="background:none; border:none; color:var(--indigo-700); font-weight:800; text-decoration:underline; cursor:pointer; padding:0;" onclick="setFormLayoutMode('matrix')">Spreadsheet Matrix View</button> at any time.
-            </span>
-            <div style="display:flex; gap:8px;">
-              <button type="button" class="btn btn-outline btn-sm" onclick="clearCurrentObservationForm()">Clear Form</button>
-              <button type="button" class="btn btn-emerald" onclick="submitObservation()">✓ Complete &amp; Save Observation</button>
-            </div>
-          </div>
-        </div>
-      `;
-    }
-
-    function renderComponentCard(comp) {
-      const f = state.form;
-      const currentScore = f.scores[comp.id];
-      const currentNote = f.notes[comp.id] || '';
-      const selectedCompTags = f.componentTags[comp.id] || [];
-      const showLookFors = f.expandedLookFors[comp.id] !== false;
-
-      return `
-        <div class="component-row">
-          <div class="component-split">
-            <div>
-              <div style="display:flex; align-items:center; justify-content:space-between; gap:8px;">
-                <div style="display:flex; align-items:center; gap:10px;">
-                  <span class="badge badge-indigo tabular-nums" style="font-size:12px;">${comp.number}</span>
-                  <h3 style="margin:0; font-size:16px; font-weight:800; color:var(--text-primary);">${escapeHtml(comp.name)}</h3>
-                </div>
-                <button type="button" style="background:none; border:none; color:var(--indigo-700); font-size:12px; font-weight:700; cursor:pointer;" onclick="toggleLookFors('${comp.id}')">
-                  ${showLookFors ? 'Hide' : 'Show'} G8 SS Look-Fors
-                </button>
-              </div>
-
-              <p style="margin:8px 0 10px; font-size:13px; color:var(--text-secondary);">${escapeHtml(comp.descriptor)}</p>
-
-              <!-- Component Quick-Tap Evidence Tags -->
-              <div style="margin-top:8px;">
-                <span class="field-label" style="font-size:10px;">Quick-Tap Evidence Tags:</span>
-                <div style="display:flex; flex-wrap:wrap; gap:6px;">
-                  ${(comp.suggestedTags || []).map(tag => {
-                    const active = selectedCompTags.includes(tag);
-                    return `
-                      <button type="button" class="tag-pill ${active ? 'active' : ''}" onclick="toggleComponentTag('${comp.id}', '${escapeHtml(tag)}')">
-                        ${active ? '✓ ' : '+ '}${escapeHtml(tag)}
-                      </button>
-                    `;
-                  }).join('')}
-                </div>
-              </div>
-
-              ${showLookFors ? `
-                <div class="lookfor-box">
-                  <strong style="color:var(--sky-800); font-size:11px; text-transform:uppercase;">G8 Social Studies Look-Fors</strong>
-                  <ul>
-                    ${comp.lookFors.map(lf => `<li>${escapeHtml(lf)}</li>`).join('')}
-                  </ul>
-                </div>
-              ` : ''}
-            </div>
-
-            <div class="score-panel">
-              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
-                <span class="field-label" style="margin:0;">Select Rating</span>
-                <span style="font-size:11px; font-weight:800; color:var(--indigo-700);">
-                  ${typeof currentScore === 'number' ? escapeHtml(RATING_SCALE.find(r => r.value === currentScore).label) : 'Not scored'}
-                </span>
-              </div>
-
-              <div class="rating-grid">
-                ${RATING_SCALE.map(r => {
-                  const isSel = currentScore === r.value;
-                  return `
-                    <button type="button" class="rating-btn tabular-nums ${isSel ? 'sel-' + r.value : ''}" title="${escapeHtml(r.label)}" onclick="setComponentScore('${comp.id}', ${r.value})">
-                      ${r.short}
-                    </button>
-                  `;
-                }).join('')}
-              </div>
-
-              <div style="margin-top:12px;">
-                <label class="field-label">${escapeHtml(comp.name)} Evidence Notes (Optional)</label>
-                <textarea rows="2" class="textarea" placeholder="Record timestamped classroom evidence or student responses..." oninput="setComponentNote('${comp.id}', this.value)">${escapeHtml(currentNote)}</textarea>
-              </div>
-            </div>
-          </div>
+          ${renderSpreadsheetMatrixWorkspace()}
         </div>
       `;
     }
@@ -2412,17 +2247,6 @@
     }
 
     // Form Event Handlers
-    function setFormLayoutMode(mode) {
-      state.form.layoutMode = mode;
-      persistActiveDraft();
-      renderApp();
-    }
-
-    function setActiveDomainTab(tabId) {
-      state.form.activeDomainTab = tabId;
-      renderApp();
-    }
-
     function updateFormField(field, value) {
       state.form[field] = value;
       persistActiveDraft();
@@ -2471,9 +2295,7 @@
     }
 
     function toggleLookFors(compId) {
-      const current = state.form.layoutMode === 'tabs'
-        ? state.form.expandedLookFors[compId] !== false
-        : !!state.form.expandedLookFors[compId];
+      const current = !!state.form.expandedLookFors[compId];
       state.form.expandedLookFors[compId] = !current;
       renderApp();
     }
@@ -3124,6 +2946,7 @@
                         </td>
                         <td style="text-align:right; white-space:nowrap;">
                           <button type="button" class="btn btn-soft-indigo btn-sm" onclick="event.stopPropagation(); openReportModal('${obs.id}')">View Report</button>
+                          ${canDeleteObservation(obs) ? `<button type="button" class="btn btn-outline btn-sm" style="color:var(--rose-700); border-color:var(--rose-200);" onclick="event.stopPropagation(); deleteObservation('${obs.id}')" title="Delete this observation">Delete</button>` : ''}
                         </td>
                       </tr>
                     `;
@@ -3174,6 +2997,7 @@
               <div class="no-print" style="display:flex; gap:6px;">
                 <button type="button" class="btn btn-outline btn-sm" onclick="copyReportToClipboard('${obs.id}')">Copy Summary</button>
                 <button type="button" class="btn btn-primary btn-sm" onclick="window.print()">Print / Save PDF</button>
+                ${canDeleteObservation(obs) ? `<button type="button" class="btn btn-outline btn-sm" style="color:var(--rose-700); border-color:var(--rose-200);" onclick="deleteObservation('${obs.id}')">Delete</button>` : ''}
                 <button type="button" class="btn btn-outline btn-sm" onclick="closeModal()">✕</button>
               </div>
             </div>
@@ -3525,6 +3349,45 @@
       } else {
         updateOfflineIndicator('Shared Workspace • Synced');
         notifyOtherTabs();
+      }
+    }
+
+    // Only the signed-in user who created an observation may delete it.
+    // Observations still waiting in this device's outbox were created here, so they count as owned.
+    function canDeleteObservation(obs) {
+      if (!obs || !currentUser) return false;
+      if (getOutbox().some(o => o.id === obs.id)) return true;
+      return !!obs.submittedBy && obs.submittedBy.toLowerCase() === String(currentUser.email || '').toLowerCase();
+    }
+
+    let deleteInFlight = false;
+    async function deleteObservation(obsId) {
+      const obs = state.observations.find(o => o.id === obsId);
+      if (!obs || !canDeleteObservation(obs) || deleteInFlight) return;
+      const label = (obs.teacher || 'this teacher') + ' on ' + (obs.date || 'this date');
+      if (!window.confirm('Delete the observation of ' + label + '? This cannot be undone.')) return;
+
+      deleteInFlight = true;
+      try {
+        const wasPending = getOutbox().some(o => o.id === obsId);
+        saveJSON(STORAGE_KEYS.OUTBOX, getOutbox().filter(o => o.id !== obsId));
+        try {
+          await apiFetch('/api/observations/' + encodeURIComponent(obsId), { method: 'DELETE' });
+        } catch (err) {
+          // A never-synced observation only lived on this device, so removing it locally is enough.
+          if (!(wasPending && err.status === 0)) {
+            if (wasPending) saveJSON(STORAGE_KEYS.OUTBOX, getOutbox().concat([obs]));
+            showToast('Could not delete observation: ' + err.message, 'error');
+            return;
+          }
+        }
+        state.observations = state.observations.filter(o => o.id !== obsId);
+        closeModal();
+        renderApp();
+        notifyOtherTabs();
+        showToast('Observation deleted.', 'success');
+      } finally {
+        deleteInFlight = false;
       }
     }
 
