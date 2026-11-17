@@ -1004,17 +1004,81 @@
       .offline-pill { display: none; }
     }
 
+    .component-note {
+      min-height: 120px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    @page {
+      size: letter;
+      margin: 0.5in;
+    }
+
     @media print {
-      body * { visibility: hidden; }
-      #printable-report, #printable-report * { visibility: visible; }
-      #printable-report {
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 100%;
-        background: #ffffff;
-        padding: 16px;
+      html, body {
+        background: #ffffff !important;
+        height: auto !important;
+        overflow: visible !important;
       }
+      /* Only the report modal is printed; everything else is removed from layout */
+      body > *:not(#modal-backdrop) { display: none !important; }
+      #modal-backdrop.hidden { display: none !important; }
+      #modal-backdrop {
+        position: static !important;
+        display: block;
+        background: none !important;
+        padding: 0 !important;
+        overflow: visible !important;
+        inset: auto !important;
+      }
+      #modal-content {
+        max-width: none !important;
+        width: 100% !important;
+        max-height: none !important;
+        overflow: visible !important;
+        border: none !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+      }
+      #printable-report {
+        position: static !important;
+        padding: 0 !important;
+        background: #ffffff;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      #printable-report * {
+        position: static !important;
+        overflow: visible !important;
+      }
+      #printable-report h2 { line-height: 1.25; }
+      #printable-report .badge { white-space: normal; line-height: 1.35; }
+      #printable-report .grid-3,
+      #printable-report .grid-2 {
+        display: block !important;
+      }
+      #printable-report .grid-3 > *,
+      #printable-report .grid-2 > * {
+        margin-bottom: 10px;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+      #printable-report .card { border: none !important; box-shadow: none !important; }
+      #printable-report .table-wrap { overflow: visible !important; }
+      #printable-report table { table-layout: fixed; width: 100%; border-collapse: collapse; }
+      #printable-report thead { display: table-header-group; }
+      #printable-report tr { break-inside: avoid; page-break-inside: avoid; }
+      #printable-report th, #printable-report td {
+        vertical-align: top;
+        white-space: normal !important;
+        word-wrap: break-word;
+        overflow-wrap: anywhere;
+        line-height: 1.45;
+      }
+      #printable-report th:first-child, #printable-report td:first-child { width: 26%; }
+      #printable-report th:nth-child(2), #printable-report td:nth-child(2) { width: 12%; }
+      #printable-report img { max-height: 220px; break-inside: avoid; }
       .no-print { display: none !important; }
     }
   </style>
@@ -1331,47 +1395,6 @@
       { value: 2, label: 'Sometimes / Occasionally', short: '2' },
       { value: 3, label: 'Frequently / Almost Always', short: '3' },
       { value: 4, label: 'Always / Consistently', short: '4' }
-    ];
-
-    const SAMPLE_PHOTOS = [
-      {
-        caption: 'Colonial Grievances Bucketing Anchor Chart',
-        dataUrl: 'data:image/svg+xml;utf8,' + encodeURIComponent(
-          '<svg xmlns="http://www.w3.org/2000/svg" width="480" height="280" viewBox="0 0 480 280">' +
-          '<rect width="480" height="280" fill="#f8fafc" stroke="#cbd5e1" stroke-width="4"/>' +
-          '<rect x="20" y="18" width="440" height="40" rx="8" fill="#e0e7ff"/>' +
-          '<text x="240" y="43" font-family="sans-serif" font-size="15" font-weight="bold" fill="#1e3a8a" text-anchor="middle">G8 SS ANCHOR CHART: BUCKETING EVIDENCE</text>' +
-          '<rect x="24" y="72" width="205" height="184" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>' +
-          '<text x="126" y="96" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0f172a" text-anchor="middle">Political Grievances</text>' +
-          '<text x="38" y="128" font-family="sans-serif" font-size="12" fill="#334155">• Dissolved Assemblies</text>' +
-          '<text x="38" y="152" font-family="sans-serif" font-size="12" fill="#334155">• Denied Trial by Jury</text>' +
-          '<text x="38" y="180" font-family="sans-serif" font-size="11" fill="#059669" font-weight="bold">Source: DOI Excerpt Line 14</text>' +
-          '<rect x="250" y="72" width="205" height="184" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>' +
-          '<text x="352" y="96" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0f172a" text-anchor="middle">Economic Grievances</text>' +
-          '<text x="264" y="128" font-family="sans-serif" font-size="12" fill="#334155">• Taxation Without Consent</text>' +
-          '<text x="264" y="152" font-family="sans-serif" font-size="12" fill="#334155">• Cut Off Colonial Trade</text>' +
-          '<text x="264" y="180" font-family="sans-serif" font-size="11" fill="#059669" font-weight="bold">Source: Stamp Act Doc B</text>' +
-          '</svg>'
-        )
-      },
-      {
-        caption: 'Whiteboard Timer & Federalist No. 51 DOL Exit Ticket',
-        dataUrl: 'data:image/svg+xml;utf8,' + encodeURIComponent(
-          '<svg xmlns="http://www.w3.org/2000/svg" width="480" height="280" viewBox="0 0 480 280">' +
-          '<rect width="480" height="280" fill="#ffffff" stroke="#cbd5e1" stroke-width="4"/>' +
-          '<rect x="20" y="18" width="290" height="40" rx="8" fill="#ecfdf5" stroke="#a7f3d0"/>' +
-          '<text x="32" y="43" font-family="sans-serif" font-size="13" font-weight="bold" fill="#065f46">OBJECTIVE: Analyze Federalist No. 51</text>' +
-          '<rect x="325" y="18" width="135" height="40" rx="8" fill="#fef3c7" stroke="#fde68a"/>' +
-          '<text x="392" y="43" font-family="monospace" font-size="15" font-weight="bold" fill="#92400e" text-anchor="middle">TIMER 08:00</text>' +
-          '<rect x="20" y="74" width="440" height="184" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>' +
-          '<text x="36" y="102" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1e3a8a">DEMONSTRATION OF LEARNING (DOL):</text>' +
-          '<text x="36" y="130" font-family="sans-serif" font-size="12" fill="#1e293b">1. Show your ABCD accountability card on teacher cue.</text>' +
-          '<text x="36" y="156" font-family="sans-serif" font-size="12" fill="#1e293b">2. Write 2 sentences citing specific text evidence:</text>' +
-          '<rect x="36" y="174" width="408" height="64" rx="6" fill="#ffffff" stroke="#cbd5e1"/>' +
-          '<text x="48" y="200" font-family="sans-serif" font-size="11" font-style="italic" fill="#475569">"According to Madison in Federalist No. 51, ____ proves that checks and balances prevent tyranny..."</text>' +
-          '</svg>'
-        )
-      }
     ];
 
     // =========================================================================
@@ -2083,7 +2106,7 @@
                     <th style="width:42px;">#</th>
                     <th style="min-width:260px;">Component, Tags &amp; Look-Fors</th>
                     <th style="min-width:260px; text-align:center;">Score (0 = N/A • 1–4 Scale)</th>
-                    <th style="min-width:280px;">Component Evidence Notes</th>
+                    <th style="min-width:360px;">Component Evidence Notes</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -2143,7 +2166,7 @@
                             </div>
                           </td>
                           <td>
-                            <input type="text" class="input" value="${escapeHtml(currentNote)}" placeholder="Notes for ${escapeHtml(comp.name)}..." oninput="setComponentNote('${comp.id}', this.value)" />
+                            <textarea rows="5" class="textarea component-note" placeholder="Notes for ${escapeHtml(comp.name)}..." oninput="setComponentNote('${comp.id}', this.value)">${escapeHtml(currentNote)}</textarea>
                           </td>
                         </tr>
                       `;
@@ -2213,10 +2236,6 @@
               <div>
                 <span style="font-size:11px; font-weight:800; text-transform:uppercase; color:var(--sky-800);">Visual Artifacts</span>
                 <h3 class="card-title">Classroom Whiteboard, Anchor Chart &amp; Student Work Photos</h3>
-              </div>
-              <div style="display:flex; gap:8px; flex-wrap:wrap;">
-                <button type="button" class="btn btn-soft-sky btn-sm" onclick="addSampleArtifactPhoto(0)">+ Sample Anchor Chart</button>
-                <button type="button" class="btn btn-soft-sky btn-sm" onclick="addSampleArtifactPhoto(1)">+ Sample DOL Whiteboard</button>
               </div>
             </div>
 
@@ -2350,15 +2369,6 @@
         img.onerror = function () { resolve(dataUrl); };
         img.src = dataUrl;
       });
-    }
-
-    function addSampleArtifactPhoto(idx) {
-      const sample = SAMPLE_PHOTOS[idx];
-      if (!sample) return;
-      state.form.photos.push({ ...sample });
-      persistActiveDraft();
-      renderApp();
-      showToast('Attached sample artifact: ' + sample.caption, 'info');
     }
 
     function updatePhotoCaption(idx, val) {
